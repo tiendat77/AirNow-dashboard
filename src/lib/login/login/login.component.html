@@ -1,0 +1,50 @@
+<div class="sign-in-container" fxLayout="column" fxLayoutAlign="space-around center">
+  <div class="limiter">
+
+    <ngx-loading [show]="loginService.loading" [config]="config"></ngx-loading>
+
+    <div class="wrap" fxLayout="column">
+      <div class="row-1" fxLayout="column" fxLayoutAlign="center center">
+        <a>
+          <img src="/assets/air-now.svg" height="68px" width="68px" alt="Air Now Logo">
+        </a>
+        <h1 class="auth-header">Sign in to <span class="h1-air-now">Air Now</span></h1>
+      </div>
+      <div class="row-2" fxLayout="column" fxLayoutAlign="space-around start">
+
+        <form [formGroup]="SigninForm" class="auth-body" (ngSubmit)="submit()">
+          <div class="login-field">
+            <div fxLayout="column">
+              <label for="login-field">Username or email address</label>
+              <div class="input-wrap" fxLayoutAlign=" stretch">
+                <input id="login-field" type="text" tabindex="1" formControlName="username" (keyup)="validate()">
+              </div>
+            </div>
+            <div fxLayout="column" class="mt-15">
+              <label for="password">Password</label>
+              <div class="input-wrap" fxLayoutAlign=" stretch">
+                <input id="password" type="password" tabindex="2" formControlName="password">
+              </div>
+            </div>
+            <div fxLayoutAlign="center center">
+              <mat-hint class="hint" *ngIf="loginService.error">
+                  <div>{{ loginService.error }}</div>
+              </mat-hint>
+            </div>
+            <button mat-flat-button class="login-button" type="submit" tabindex="3" [disabled]="SigninForm.invalid">
+              Sign in
+            </button>
+          </div>
+        </form>
+
+      </div>
+      <div class="row-3" fxLayout="column" fxLayoutAlign="end center">
+        <ul fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <li>Terms</li>
+          <li>Privacy</li>
+          <li>Security</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
