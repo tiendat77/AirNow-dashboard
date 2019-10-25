@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<app-header-bar></app-header-bar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav-limiter" mode="side" [opened]="dataService.isMenuOpened">
+    <nav class="nav-container">
+      <ul class="nav">
+        <li class="nav-item-category">Main menu</li>
+        <li *ngFor="let item of navitem"><a routerLink={{item.link}}>{{item.title}}</a></li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-panel">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

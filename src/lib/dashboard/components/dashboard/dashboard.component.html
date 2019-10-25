@@ -1,1 +1,43 @@
-<p>dashboard works!</p>
+<div class="main-panel">
+  <!-- <div class="row" *ngIf="statistic$ | async as statistic"> -->
+  <section class="section-1">
+    <div class="row">
+      <mat-card class="card">
+        <div class="card-body">
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center" *ngFor="let statis of statistic">
+              <h3 class="h3-statis">{{ statis.data }}</h3>
+              <h5 class="h5-statis">{{ statis.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </section>
+  <section class="section-2">
+    <div class="row" fxLayout="row" fxLayoutGap="15px">
+      <div class="row-item" fxFlex="60">
+        <mat-card class="card">
+          <div class="card-body">
+            <h4 class="h4-title">Sales statistic overview</h4>
+            <div class="chart" fxLayoutAlign="center center">
+              <!-- Ngx Line Chart -->
+              <app-chart fxFlex [results]="data" [xAxisLabel]="'Time'" [xAxisLabel]="'AQI'">
+              </app-chart>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="row-item" fxFlex>
+        <mat-card class="card">
+          <div class="card-body">
+            <h4 class="h4-title">Infomation</h4>
+            <div class="chart" fxLayoutAlign="center center">
+              <button mat-button color="primary">Test</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+</div>

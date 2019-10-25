@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  navitem = [
+    { title: 'Dashboard', link: '/dashboard' }
+  ];
+
+  constructor(
+    public dataService: DataService
+  ) { }
 
   ngOnInit() {
   }

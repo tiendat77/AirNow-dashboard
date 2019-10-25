@@ -1,0 +1,58 @@
+$base-color: #1c1e2f;
+$card-color: #222437;
+
+.main-panel {
+  margin-top: 10px;
+  padding: 20px;
+
+  .row {
+    margin-bottom: 25px;
+  }
+  
+  .row-item {
+    min-height: 400px;
+
+   .mat-card {
+      height: 100%;
+    }
+  }
+  
+  .card {
+    background-color: $base-color;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .card-body {
+    color: #fff;
+    background-color: $card-color;
+    border-radius: 3px;
+    padding: 30px;
+  }
+  
+  .h3-statis {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .h5-statis {
+    color: #2196f3;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .h4-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  
+  .chart {
+    overflow: hidden;
+  }
+
+}

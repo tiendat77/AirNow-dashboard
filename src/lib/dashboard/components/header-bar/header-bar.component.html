@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <mat-toolbar-row class="header-container fixed-top">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="header-limiter">
+      <div class="air-now-logo" fxLayout="row" fxLayoutAlign="center center">
+        <button type="button" mat-button (click)="sidenavToggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a class="air-now-home" href="#" fxLayout="row" fxLayoutAlign=" center">
+          <img src="/assets/air-now.svg" height="40px" width="40px" alt="AirNow">
+          <span class="title">AirNow</span>
+        </a>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <form class="form-wrap" action="#" fxLayoutAlign="start center">
+          <input class="form-control" type="search" placeholder="Search">
+        </form>
+        <a class="nav-link dropdown" fxLayoutAlign="center center" [matMenuTriggerFor]="settings">
+          <img src="/assets/admin.jpg" height="40px" width="40px" alt="Avatar" class="round-circle">
+          <mat-icon class="dropdown-btn">keyboard_arrow_down</mat-icon>
+        </a>
+        <mat-menu #settings="matMenu" class="dropdown-menu">
+          <div class="dropdown-header">
+            <img src="/assets/{{user.avatar}}" height="60px" width="60px" class="round-circle" alt="Avatar">
+            <p class="user-name">{{ user.name }}</p>
+            <p class="user-email">{{ user.email }}</p>
+          </div>
+          <div class="dropdown-item" fxLayout="column" fxLayoutAlign="center start">
+            <a fxLayoutAlign="start center">
+              <mat-icon class="ico">person</mat-icon>
+              <span>My Profile</span>
+            </a>
+            <a fxLayoutAlign="start center">
+              <mat-icon class="ico">message</mat-icon>
+              <span>Message</span>
+            </a>
+            <a fxLayoutAlign="start center">
+              <mat-icon class="ico">power_settings_new</mat-icon>
+              <span>Sign out</span>
+            </a>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

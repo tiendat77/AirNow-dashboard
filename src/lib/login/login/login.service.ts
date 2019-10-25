@@ -7,8 +7,8 @@ import { Observable, of } from 'rxjs';
 })
 export class LoginService {
 
-  SERVER_URL = 'http://13.59.35.198:8000/user/login';
-  LOCAL_URL = 'http://127.0.0.1:8000/user/login';
+  SERVER_URL = 'http://13.59.35.198:8000/login';
+  LOCAL_URL = 'http://127.0.0.1:8000/login';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,7 +21,9 @@ export class LoginService {
   loading = false;
   error = '';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
   login(username: string, password: string) {
 
@@ -33,24 +35,14 @@ export class LoginService {
     };
     this.httpClient.post(this.LOCAL_URL, user, this.httpOptions)
     .subscribe(
-      (res: any) => {
-        setTimeout(() => {
-          this.loading = false;
-        }, 200);
-
-        if (!res.valid) {
-          this.error = res.message;
-        } else {
-          window.location.assign('/user/dashboard');
-        }
-      },
+      () => {},
       (error) => {
         setTimeout(() => {
           this.loading = false;
         }, 200);
 
         if (error.status === 401) {
-          this.error = 'Invalid username or password';
+          this.error = 'Incorrect username or password';
         }
         console.error(error);
       }
