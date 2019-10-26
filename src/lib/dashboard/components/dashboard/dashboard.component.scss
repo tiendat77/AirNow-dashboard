@@ -5,6 +5,10 @@ $card-color: #222437;
   margin-top: 10px;
   padding: 20px;
 
+  .section-2 {
+    max-height: 600px;
+  }
+
   .row {
     margin-bottom: 25px;
   }
@@ -50,9 +54,33 @@ $card-color: #222437;
     margin-top: 0;
     margin-bottom: 15px;
   }
-  
-  .chart {
-    overflow: hidden;
+
+  .icon-lg {
+
+    ::ng-deep .mat-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .perm_identity {
+      font-size: 80px !important;
+      color: #47a447 !important;
+    }
+
+    .cloud_upload {
+      font-size: 80px !important;
+      color: #0088cc !important;
+    }
+
+    .cloud_download {
+      font-size: 80px !important;
+      color: #ed9c28 !important;
+    }
+
+    .shopping_cart {
+      font-size: 80px !important;
+      color: #d53f3a !important;
+    }
   }
 
 }

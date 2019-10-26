@@ -4,16 +4,112 @@ export const STATISTIC = [
     name: 'Visits'
   },
   {
-    data: 15236,
-    name: 'Impression'
+    data: 1536,
+    name: 'Uploads'
   },
   {
     data: 7699,
-    name: 'Conversion'
+    name: 'Downloads'
   },
   {
-    data: 1553,
-    name: 'Downloads'
+    data: 3,
+    name: 'Products'
+  }
+];
+
+export const AQI: any[] = [
+  {
+    name: 'Thủ Đức',
+    series: [
+      {
+        value: 120,
+        name: '12h'
+      },
+      {
+        value: 60,
+        name: '13h'
+      },
+      {
+        value: 80,
+        name: '14h'
+      },
+      {
+        value: 20,
+        name: '15h'
+      },
+      {
+        value: 70,
+        name: '16h'
+      },
+      {
+        value: 100,
+        name: '17h'
+      },
+    ]
+  }
+];
+
+export const TEMPERATURE: any[] = [
+  {
+    name: 'Thủ Đức',
+    series: [
+      {
+        value: 35,
+        name: '12h'
+      },
+      {
+        value: 35,
+        name: '13h'
+      },
+      {
+        value: 30,
+        name: '14h'
+      },
+      {
+        value: 31,
+        name: '15h'
+      },
+      {
+        value: 29,
+        name: '16h'
+      },
+      {
+        value: 28,
+        name: '17h'
+      },
+    ]
+  }
+];
+
+export const HUMIDITY: any[] = [
+  {
+    name: 'Thủ Đức',
+    series: [
+      {
+        value: 65,
+        name: '12h'
+      },
+      {
+        value: 68,
+        name: '13h'
+      },
+      {
+        value: 70,
+        name: '14h'
+      },
+      {
+        value: 68,
+        name: '15h'
+      },
+      {
+        value: 75,
+        name: '16h'
+      },
+      {
+        value: 80,
+        name: '17h'
+      },
+    ]
   }
 ];
 

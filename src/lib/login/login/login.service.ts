@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class LoginService {
 
   constructor(
     private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   login(username: string, password: string) {
@@ -35,7 +37,17 @@ export class LoginService {
     };
     this.httpClient.post(this.LOCAL_URL, user, this.httpOptions)
     .subscribe(
-      () => {},
+      (res: any) => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 200);
+
+        if (res.valid) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.error = 'Something went wrong';
+        }
+      },
       (error) => {
         setTimeout(() => {
           this.loading = false;

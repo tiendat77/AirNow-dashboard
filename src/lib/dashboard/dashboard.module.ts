@@ -20,6 +20,7 @@ import { MainComponent } from './components/main/main.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { DataService } from './services/data.service';
 
 
 @NgModule({
@@ -46,6 +47,9 @@ import { ChartComponent } from './components/chart/chart.component';
 
     NgxChartsModule,
     StoreModule
-  ]
+  ],
+  providers: [
+    DataService
+  ],
 })
 export class DashboardModule { }

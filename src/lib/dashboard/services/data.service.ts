@@ -1,15 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
+  SERVER_URL = 'http://13.59.35.198:8000/login';
+  LOCAL_URL = 'http://127.0.0.1:8000/login';
+
   isMenuOpened = false;
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   toggleMenu() {
     this.isMenuOpened  = !this.isMenuOpened;
+  }
+
+  logout() {
+    this.httpClient.get(this.LOCAL_URL).subscribe(
+      (res: any) => {
+        console.log('Logout');
+      });
   }
 }

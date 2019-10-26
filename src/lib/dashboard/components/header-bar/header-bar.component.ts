@@ -25,4 +25,8 @@ export class HeaderBarComponent implements OnInit {
     this.dataService.toggleMenu();
   }
 
+  logout() {
+    this.dataService.logout();
+  }
+
 }

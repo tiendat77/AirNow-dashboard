@@ -11,7 +11,9 @@ export class DashboardComponent implements OnInit {
 
   // This for test
   statistic = MOCK.STATISTIC;
-  data = MOCK.CHART;
+  aqi = MOCK.AQI;
+  temperature = MOCK.TEMPERATURE;
+  humidity = MOCK.HUMIDITY;
 
   constructor() { }
 

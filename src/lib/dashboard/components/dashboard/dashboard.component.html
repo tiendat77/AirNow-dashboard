@@ -1,11 +1,17 @@
-<div class="main-panel">
+<div class="main-panel" fxLayout="column">
   <!-- <div class="row" *ngIf="statistic$ | async as statistic"> -->
   <section class="section-1">
-    <div class="row">
-      <mat-card class="card">
+    <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex >
+      <mat-card class="card" *ngFor="let statis of statistic" fxFlex>
         <div class="card-body">
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center" *ngFor="let statis of statistic">
+          <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+            <div class="icon-lg" fxFlex>
+              <mat-icon *ngIf="statis.name==='Visits'" class="perm_identity">perm_identity</mat-icon>
+              <mat-icon *ngIf="statis.name==='Uploads'" class="cloud_upload">cloud_upload</mat-icon>
+              <mat-icon *ngIf="statis.name==='Downloads'" class="cloud_download">cloud_download</mat-icon>
+              <mat-icon *ngIf="statis.name==='Products'" class="shopping_cart">shopping_cart</mat-icon>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-between end" fxFlex>
               <h3 class="h3-statis">{{ statis.data }}</h3>
               <h5 class="h5-statis">{{ statis.name }}</h5>
             </div>
@@ -18,23 +24,42 @@
     <div class="row" fxLayout="row" fxLayoutGap="15px">
       <div class="row-item" fxFlex="60">
         <mat-card class="card">
-          <div class="card-body">
-            <h4 class="h4-title">Sales statistic overview</h4>
-            <div class="chart" fxLayoutAlign="center center">
-              <!-- Ngx Line Chart -->
-              <app-chart fxFlex [results]="data" [xAxisLabel]="'Time'" [xAxisLabel]="'AQI'">
-              </app-chart>
-            </div>
+          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+            <h4 class="h4-title">Air Quality Index Statistics</h4>
+            <!-- Ngx Line Chart -->
+            <app-chart
+              fxFlex
+              fxLayoutAlign="center center"
+              [results]="aqi"
+              [xAxisLabel]="'Time'"
+              [xAxisLabel]="'AQI'">
+            </app-chart>
           </div>
         </mat-card>
       </div>
-      <div class="row-item" fxFlex>
-        <mat-card class="card">
-          <div class="card-body">
-            <h4 class="h4-title">Infomation</h4>
-            <div class="chart" fxLayoutAlign="center center">
-              <button mat-button color="primary">Test</button>
-            </div>
+      <div class="row-item" fxFlex fxLayout="column" fxLayoutGap="15px">
+        <mat-card class="card" fxFlex="50">
+          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+            <h4 class="h4-title">Temperature Statistics</h4>
+            <app-chart
+              fxFlex
+              fxLayoutAlign="center center"
+              [results]="temperature"
+              [xAxisLabel]="'Time'"
+              [xAxisLabel]="'AQI'">
+            </app-chart>
+          </div>
+        </mat-card>
+        <mat-card class="card" fxFlex>
+          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+            <h4 class="h4-title">Humidity Statistics</h4>
+            <app-chart
+              fxFlex
+              fxLayoutAlign="center center"
+              [results]="humidity"
+              [xAxisLabel]="'Time'"
+              [xAxisLabel]="'AQI'">
+            </app-chart>
           </div>
         </mat-card>
       </div>
