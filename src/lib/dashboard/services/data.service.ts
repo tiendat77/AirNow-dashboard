@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
 
-  SERVER_URL = 'http://13.59.35.198:8000/login';
-  LOCAL_URL = 'http://127.0.0.1:8000/login';
+  SERVER_URL = 'http://13.59.35.198:8000/logout';
+  LOCAL_URL = 'http://127.0.0.1:8000/logout';
 
   isMenuOpened = false;
 
@@ -20,7 +20,7 @@ export class DataService {
   }
 
   logout() {
-    this.httpClient.get(this.LOCAL_URL).subscribe(
+    this.httpClient.get(this.SERVER_URL).subscribe(
       (res: any) => {
         console.log('Logout');
       });

@@ -1,0 +1,48 @@
+<div class="container" fxLayout="row" fxLayoutAlign="space-between stretch"> <!-- TODO: add reponsive -->
+  <div class="row" fxFlex="364px" *ngFor="let item of forecast">
+    <div class="column card" fxLayout="column">
+      <div class="card-header" fxLayoutAlign="space-between center">
+        <div class="name">
+          <span>{{ item.name }}</span>
+        </div>
+        <div class="wheather" fxLayoutAlign="center center">
+          <img src="/assets/ic_temperature.svg" alt class="icon">
+          <span>{{ item.temperature }}°</span>
+        </div>
+      </div>
+
+      <div class="card-body" 
+        [ngClass]="{
+          'red-aqi-bg': item.status==='Unhealthy',
+          'orange-aqi-bg': item.status==='Unhealthy for Sensitive Groups',
+          'yellow-aqi-bg': item.status==='Moderate',
+          'green-aqi-bg': item.status==='Good'
+        }"
+        fxFlex fxLayoutAlign="space-between stretch">
+        <div *ngIf="item.status==='Good'" class="face green-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+          <img src="/assets/ic-face-green.svg" alt="{{item.status}}">
+        </div>
+        <div *ngIf="item.status==='Moderate'" class="face yellow-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+          <img src="/assets/ic-face-yellow.svg" alt="{{item.status}}">
+        </div>
+        <div *ngIf="item.status==='Unhealthy for Sensitive Groups'" class="face orange-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+          <img src="/assets/ic-face-orange.svg" alt="{{item.status}}">
+        </div>
+        <div *ngIf="item.status==='Unhealthy'" class="face red-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+          <img src="/assets/ic-face-red.svg" alt="{{item.status}}">
+        </div>
+
+        <div class="infor" fxFlex fxLayoutAlign="space-between stretch" >
+          <div class="aqi-container" fxLayout="column" fxLayoutAlign="center stretch">
+            <span class="aqi">{{ item.aqi }}</span>
+            <span class="type">US AQI</span>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="space-between center">
+            <span class="status">{{ item.status }}</span>
+            <span class="pollutant">PM2.5 | {{ item.pollutant }} µg/m³</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

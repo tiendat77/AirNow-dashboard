@@ -5,49 +5,59 @@ $card-color: #222437;
   margin-top: 10px;
   padding: 20px;
 
-  .section-2 {
+  .section-statistic {
+    max-height: 175px;
+  }
+
+  .section-forecast {
     max-height: 600px;
+
+  }
+
+  .section-3 {
+    min-height: 600px;
+    width: 100%;
   }
 
   .row {
     margin-bottom: 25px;
   }
-  
+
   .row-item {
     min-height: 400px;
 
-   .mat-card {
+    .mat-card {
       height: 100%;
     }
   }
-  
+
   .card {
     background-color: $base-color;
     box-shadow: none;
     padding: 0;
   }
-  
+
   .card-body {
     color: #fff;
     background-color: $card-color;
     border-radius: 3px;
     padding: 30px;
   }
-  
+
   .h3-statis {
     color: #fff;
     font-size: 32px;
     font-weight: 600;
     margin: 0;
   }
-  
+
   .h5-statis {
     color: #2196f3;
     font-size: 17px;
     font-weight: 500;
     margin-bottom: 4px;
   }
-  
+
   .h4-title {
     font-size: 20px;
     font-weight: 500;
@@ -77,10 +87,16 @@ $card-color: #222437;
       color: #ed9c28 !important;
     }
 
-    .shopping_cart {
+    .devices {
       font-size: 80px !important;
       color: #d53f3a !important;
     }
   }
 
+}
+
+::ng-deep .mat-tab-label-content {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
 }

@@ -1,7 +1,7 @@
 <div class="main-panel" fxLayout="column">
   <!-- <div class="row" *ngIf="statistic$ | async as statistic"> -->
-  <section class="section-1">
-    <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex >
+  <section class="section-statistic">
+    <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex>
       <mat-card class="card" *ngFor="let statis of statistic" fxFlex>
         <div class="card-body">
           <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
@@ -9,7 +9,7 @@
               <mat-icon *ngIf="statis.name==='Visits'" class="perm_identity">perm_identity</mat-icon>
               <mat-icon *ngIf="statis.name==='Uploads'" class="cloud_upload">cloud_upload</mat-icon>
               <mat-icon *ngIf="statis.name==='Downloads'" class="cloud_download">cloud_download</mat-icon>
-              <mat-icon *ngIf="statis.name==='Products'" class="shopping_cart">shopping_cart</mat-icon>
+              <mat-icon *ngIf="statis.name==='Devices'" class="devices">devices</mat-icon>
             </div>
             <div fxLayout="column" fxLayoutAlign="space-between end" fxFlex>
               <h3 class="h3-statis">{{ statis.data }}</h3>
@@ -20,18 +20,25 @@
       </mat-card>
     </div>
   </section>
-  <section class="section-2">
+
+  <section class="section-forecaste">
+    <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex>
+      <mat-card class="card" fxFlex>
+        <div class="card-body">
+          <forecast></forecast>
+        </div>
+      </mat-card>
+    </div>
+  </section>
+
+  <section class="section-chart">
     <div class="row" fxLayout="row" fxLayoutGap="15px">
       <div class="row-item" fxFlex="60">
         <mat-card class="card">
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Air Quality Index Statistics</h4>
             <!-- Ngx Line Chart -->
-            <app-chart
-              fxFlex
-              fxLayoutAlign="center center"
-              [results]="aqi"
-              [xAxisLabel]="'Time'"
+            <app-chart fxFlex fxLayoutAlign="center center" [results]="aqi" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
             </app-chart>
           </div>
@@ -41,11 +48,7 @@
         <mat-card class="card" fxFlex="50">
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Temperature Statistics</h4>
-            <app-chart
-              fxFlex
-              fxLayoutAlign="center center"
-              [results]="temperature"
-              [xAxisLabel]="'Time'"
+            <app-chart fxFlex fxLayoutAlign="center center" [results]="temperature" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
             </app-chart>
           </div>
@@ -53,11 +56,7 @@
         <mat-card class="card" fxFlex>
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Humidity Statistics</h4>
-            <app-chart
-              fxFlex
-              fxLayoutAlign="center center"
-              [results]="humidity"
-              [xAxisLabel]="'Time'"
+            <app-chart fxFlex fxLayoutAlign="center center" [results]="humidity" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
             </app-chart>
           </div>
@@ -65,4 +64,25 @@
       </div>
     </div>
   </section>
+
+  <!-- <section class="section-3">
+    <div class="row" fxFlex>
+      <mat-tab-group fxFlex>
+        <mat-tab label="Now">
+          <ng-template matTabContent>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="This Week">
+          <ng-template matTabContent>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="This Month">
+          <ng-template matTabContent>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </section> -->
 </div>

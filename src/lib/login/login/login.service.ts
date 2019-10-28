@@ -35,7 +35,7 @@ export class LoginService {
       username,
       password
     };
-    this.httpClient.post(this.LOCAL_URL, user, this.httpOptions)
+    this.httpClient.post(this.SERVER_URL, user, this.httpOptions)
     .subscribe(
       (res: any) => {
         setTimeout(() => {

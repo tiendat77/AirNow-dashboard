@@ -9,7 +9,10 @@ import {
   MatToolbarModule,
   MatSidenavModule,
   MatCardModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDialogModule,
+  MatSnackBarModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
@@ -21,6 +24,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { DataService } from './services/data.service';
+import { ForecastComponent } from './components/dashboard/forecast/forecast.component';
 
 
 @NgModule({
@@ -28,7 +32,8 @@ import { DataService } from './services/data.service';
     MainComponent,
     DashboardComponent,
     HeaderBarComponent,
-    ChartComponent
+    ChartComponent,
+    ForecastComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +49,9 @@ import { DataService } from './services/data.service';
     MatSidenavModule,
     MatToolbarModule,
     MatMenuModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTabsModule,
 
     NgxChartsModule,
     StoreModule

@@ -1,19 +1,19 @@
 export const STATISTIC = [
   {
-    data: 32451,
+    data: 451,
     name: 'Visits'
   },
   {
-    data: 1536,
+    data: 536,
     name: 'Uploads'
   },
   {
-    data: 7699,
+    data: 1,
     name: 'Downloads'
   },
   {
     data: 3,
-    name: 'Products'
+    name: 'Devices'
   }
 ];
 
@@ -234,4 +234,31 @@ export const CHART: any[] = [
       }
     ]
   }
+];
+
+export const FORE_CAST = [
+  {
+    name: 'Hồ Chí Minh',
+    temperature: 31,
+    humidity: 69,
+    aqi: 56,
+    status: 'Moderate',
+    pollutant: 14.4
+  },
+  {
+    name: 'Quận Bình Thạnh',
+    temperature: 29,
+    humidity: 75,
+    aqi: 129,
+    status: 'Unhealthy',
+    pollutant: 25.1
+  },
+  {
+    name: 'Quận Thủ Đức',
+    temperature: 31,
+    humidity: 85,
+    aqi: 7,
+    status: 'Good',
+    pollutant: 42
+  },
 ];

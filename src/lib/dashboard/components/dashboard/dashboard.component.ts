@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import * as MOCK from '../mock/mock';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +17,10 @@ export class DashboardComponent implements OnInit {
   temperature = MOCK.TEMPERATURE;
   humidity = MOCK.HUMIDITY;
 
-  constructor() { }
+  constructor(
+    public dataService: DataService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
   }
