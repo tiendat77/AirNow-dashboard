@@ -7,7 +7,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -24,5 +24,4 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

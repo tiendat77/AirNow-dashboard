@@ -25,6 +25,7 @@ import { HeaderBarComponent } from './components/header-bar/header-bar.component
 import { ChartComponent } from './components/chart/chart.component';
 import { DataService } from './services/data.service';
 import { ForecastComponent } from './components/dashboard/forecast/forecast.component';
+import { D3ChartComponent } from './components/d3-chart/d3-chart.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ForecastComponent } from './components/dashboard/forecast/forecast.comp
     DashboardComponent,
     HeaderBarComponent,
     ChartComponent,
-    ForecastComponent
+    ForecastComponent,
+    D3ChartComponent
   ],
   imports: [
     CommonModule,

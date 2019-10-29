@@ -38,9 +38,12 @@
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Air Quality Index Statistics</h4>
             <!-- Ngx Line Chart -->
-            <app-chart fxFlex fxLayoutAlign="center center" [results]="aqi" [xAxisLabel]="'Time'"
+            <app-chart fxFlex [results]="aqi" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
             </app-chart>
+
+            <!-- D3 chart -->
+            <!-- <d3-chart></d3-chart> -->
           </div>
         </mat-card>
       </div>
