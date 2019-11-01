@@ -1,8 +1,7 @@
 <div class="main-panel" fxLayout="column">
-  <!-- <div class="row" *ngIf="statistic$ | async as statistic"> -->
   <section class="section-statistic">
     <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex>
-      <mat-card class="card" *ngFor="let statis of statistic" fxFlex>
+      <mat-card class="card" *ngFor="let statis of dashboardService.statistics" fxFlex>
         <div class="card-body">
           <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
             <div class="icon-lg" fxFlex>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 
 import * as MOCK from '../mock/mock';
 import { DataService } from '../../services/data.service';
+import { DashboardService } from '../../store/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +20,15 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dataService: DataService,
-    public dialog: MatDialog
+    public dashboardService: DashboardService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.dashboardService.getStatistics();
+  }
+
+  test() {
+    console.log('TEST: ', this.dashboardService.statistics);
   }
 }
