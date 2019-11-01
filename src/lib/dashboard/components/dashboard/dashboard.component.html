@@ -38,12 +38,12 @@
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Air Quality Index Statistics</h4>
             <!-- Ngx Line Chart -->
-            <app-chart fxFlex [results]="aqi" [xAxisLabel]="'Time'"
+            <!-- <app-chart fxFlex [results]="aqi" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
-            </app-chart>
+            </app-chart> -->
 
             <!-- D3 chart -->
-            <!-- <d3-chart></d3-chart> -->
+            <d3-chart></d3-chart>
           </div>
         </mat-card>
       </div>
@@ -51,17 +51,17 @@
         <mat-card class="card" fxFlex="50">
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Temperature Statistics</h4>
-            <app-chart fxFlex fxLayoutAlign="center center" [results]="temperature" [xAxisLabel]="'Time'"
+            <!-- <app-chart fxFlex fxLayoutAlign="center center" [results]="temperature" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
-            </app-chart>
+            </app-chart> -->
           </div>
         </mat-card>
         <mat-card class="card" fxFlex>
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Humidity Statistics</h4>
-            <app-chart fxFlex fxLayoutAlign="center center" [results]="humidity" [xAxisLabel]="'Time'"
+            <!-- <app-chart fxFlex fxLayoutAlign="center center" [results]="humidity" [xAxisLabel]="'Time'"
               [xAxisLabel]="'AQI'">
-            </app-chart>
+            </app-chart> -->
           </div>
         </mat-card>
       </div>

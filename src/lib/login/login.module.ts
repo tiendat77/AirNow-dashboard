@@ -7,7 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
@@ -31,6 +32,7 @@ import { LoginService } from './login/login.service';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatSnackBarModule,
 
     HttpClientModule,
     NgxLoadingModule,

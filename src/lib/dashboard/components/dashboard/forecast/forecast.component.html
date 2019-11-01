@@ -1,5 +1,5 @@
-<div class="container" fxLayout="row" fxLayoutAlign="space-between stretch"> <!-- TODO: add reponsive -->
-  <div class="row" fxFlex="364px" *ngFor="let item of forecast">
+<div class="container" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px">
+  <div class="row" fxFlex="364px" *ngFor="let item of forecast; index as i" fxShow [fxHide.lt-md]="i === 2">
     <div class="column card" fxLayout="column">
       <div class="card-header" fxLayoutAlign="space-between center">
         <div class="name">

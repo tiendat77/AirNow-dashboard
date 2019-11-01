@@ -5,7 +5,7 @@ import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import { STOCKS } from '../mock/mock';
+import { STOCKS, AQI_D3, AQI } from '../mock/mock';
 
 @Component({
   selector: 'd3-chart',
@@ -45,8 +45,8 @@ export class D3ChartComponent implements OnInit {
       this.x = d3Scale.scaleTime().range([0, this.width]);
       this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-      this.x.domain(d3Array.extent(STOCKS, (d) => d.date ));
-      this.y.domain(d3Array.extent(STOCKS, (d) => d.value ));
+      this.x.domain(d3Array.extent(AQI_D3, (d) => d.date ));
+      this.y.domain(d3Array.extent(AQI_D3, (d) => d.value ));
   }
 
   private drawAxis() {
@@ -65,7 +65,7 @@ export class D3ChartComponent implements OnInit {
           .attr('y', 6)
           .attr('dy', '.71em')
           .style('text-anchor', 'end')
-          .text('Price ($)');
+          .text('AQI');
   }
 
   private drawLine() {
@@ -74,7 +74,7 @@ export class D3ChartComponent implements OnInit {
           .y( (d: any) => this.y(d.value) );
 
       this.svg.append('path')
-          .datum(STOCKS)
+          .datum(AQI_D3)
           .attr('class', 'line')
           .attr('d', this.line);
   }

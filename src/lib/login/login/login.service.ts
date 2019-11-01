@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
+
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  SERVER_URL = 'http://13.59.35.198:8000/login';
-  LOCAL_URL = 'http://127.0.0.1:8000/login';
+  SERVER_URL = 'http://13.59.35.198:8000/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,7 +25,8 @@ export class LoginService {
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private snackbar: MatSnackBar
   ) { }
 
   login(username: string, password: string) {
@@ -35,7 +37,7 @@ export class LoginService {
       username,
       password
     };
-    this.httpClient.post(this.SERVER_URL, user, this.httpOptions)
+    this.httpClient.post(this.SERVER_URL + 'login', user, this.httpOptions)
     .subscribe(
       (res: any) => {
         setTimeout(() => {
@@ -57,6 +59,22 @@ export class LoginService {
           this.error = 'Incorrect username or password';
         }
         console.error(error);
+      }
+    );
+  }
+
+  logout() {
+    this.httpClient.get(this.SERVER_URL + 'logout', this.httpOptions).subscribe(
+      (res: any) => {
+        if (res.logout) {
+          this.router.navigate(['/login']);
+        } else {
+          this.snackbar.open('Something went wrong! Please try again', 'OK', { duration: 2000 });
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.snackbar.open('Something went wrong! Please try again', 'OK', { duration: 2000 });
       }
     );
   }

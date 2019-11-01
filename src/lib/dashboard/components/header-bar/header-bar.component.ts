@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { LoginService } from 'src/lib/login/login/login.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -15,7 +16,8 @@ export class HeaderBarComponent implements OnInit {
   };
 
   constructor(
-    public dataService: DataService
+    public dataService: DataService,
+    public loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class HeaderBarComponent implements OnInit {
   }
 
   logout() {
-    this.dataService.logout();
+    this.loginService.logout();
   }
 
 }
