@@ -1,13 +1,19 @@
 <div class="container" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px">
-  <div class="row" fxFlex="364px" *ngFor="let item of forecast; index as i" fxShow [fxHide.lt-md]="i === 2">
+  <div class="row" fxFlex="364px" *ngFor="let item of dashboardService.forecast; index as i" fxShow [fxHide.lt-md]="i === 2">
     <div class="column card" fxLayout="column">
       <div class="card-header" fxLayoutAlign="space-between center">
         <div class="name">
-          <span>{{ item.name }}</span>
+          <span>{{ item.location }}</span>
         </div>
-        <div class="wheather" fxLayoutAlign="center center">
-          <img src="/assets/ic_temperature.svg" alt class="icon">
-          <span>{{ item.temperature }}°</span>
+        <div fxLayout="row" fxLayoutGap="5px">
+          <div class="wheather" fxLayoutAlign="center center">
+            <img src="/assets/ic_humidity.svg" alt class="icon">
+            <span>{{ item.humidity }}%</span>
+          </div>
+          <div class="wheather" fxLayoutAlign="center center">
+            <img src="/assets/ic_temperature.svg" alt class="icon">
+            <span>{{ item.temperature }}°</span>
+          </div>
         </div>
       </div>
 

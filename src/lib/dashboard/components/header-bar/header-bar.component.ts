@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
 import { LoginService } from 'src/lib/login/login/login.service';
+import { DashboardService } from '../../store/dashboard.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -16,7 +16,7 @@ export class HeaderBarComponent implements OnInit {
   };
 
   constructor(
-    public dataService: DataService,
+    public dashboardService: DashboardService,
     public loginService: LoginService
   ) { }
 
@@ -24,7 +24,7 @@ export class HeaderBarComponent implements OnInit {
   }
 
   sidenavToggle() {
-    this.dataService.toggleMenu();
+    this.dashboardService.toggleMenu();
   }
 
   logout() {

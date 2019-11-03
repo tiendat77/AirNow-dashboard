@@ -5,14 +5,14 @@
         <div class="card-body">
           <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
             <div class="icon-lg" fxFlex>
-              <mat-icon *ngIf="statis.name==='Visits'" class="perm_identity">perm_identity</mat-icon>
-              <mat-icon *ngIf="statis.name==='Uploads'" class="cloud_upload">cloud_upload</mat-icon>
-              <mat-icon *ngIf="statis.name==='Downloads'" class="cloud_download">cloud_download</mat-icon>
-              <mat-icon *ngIf="statis.name==='Devices'" class="devices">devices</mat-icon>
+              <mat-icon *ngIf="statis.title==='visit'" class="perm_identity">perm_identity</mat-icon>
+              <mat-icon *ngIf="statis.title==='upload'" class="cloud_upload">cloud_upload</mat-icon>
+              <mat-icon *ngIf="statis.title==='download'" class="cloud_download">cloud_download</mat-icon>
+              <mat-icon *ngIf="statis.title==='device'" class="devices">devices</mat-icon>
             </div>
             <div fxLayout="column" fxLayoutAlign="space-between end" fxFlex>
-              <h3 class="h3-statis">{{ statis.data }}</h3>
-              <h5 class="h5-statis">{{ statis.name }}</h5>
+              <h3 class="h3-statis">{{ statis.value }}</h3>
+              <h5 class="h5-statis">{{ statis.title | titlecase }}s</h5>
             </div>
           </div>
         </div>

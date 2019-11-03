@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as MOCK from '../../mock/mock';
+import { DashboardService } from 'src/lib/dashboard/store/dashboard.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -10,11 +10,10 @@ import * as MOCK from '../../mock/mock';
 })
 export class ForecastComponent implements OnInit {
 
-  forecast = MOCK.FORE_CAST;
-
-  constructor() { }
+  constructor( public dashboardService: DashboardService ) { }
 
   ngOnInit() {
+    this.dashboardService.getForecast();
   }
 
 }

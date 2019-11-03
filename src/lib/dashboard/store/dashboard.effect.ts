@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 
 import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
@@ -13,8 +13,8 @@ import { DashboardState } from './dashboard.state';
 @Injectable()
 export class DashboardEffect {
 
-  SERVER_URL = 'http://13.59.35.198:8000/api/';
-  LOCAL_URL = 'http://127.0.0.1:8000/api/';
+  // SERVER_URL = 'http://13.59.35.198:8000/api/';
+  SERVER_URL = 'http://127.0.0.1:8000/api/';
 
   constructor(
     // tslint:disable: variable-name
@@ -27,11 +27,10 @@ export class DashboardEffect {
   @Effect()
   GetStatistics = this._actions$.pipe(
     ofType(DashboardActions.GET_STATISTICS),
-    mergeMap(action =>
+    switchMap(action =>
       this.http.get(this.SERVER_URL + 'statistics')
         .pipe(
           map((data: any) => {
-            console.log(data.statistics);
             return new DashboardActions.GetStatisticsSuccess(data.statistics);
           }),
           catchError((error) => {
@@ -41,5 +40,41 @@ export class DashboardEffect {
         )
       )
   );
+
+  @Effect()
+  GetForecast = this._actions$.pipe(
+    ofType(DashboardActions.GET_FORECAST),
+    switchMap(() =>
+      this.http.get(this.SERVER_URL + 'forecast')
+        .pipe(
+          map((data: any) => {
+            const forecast = data.forecast;
+            return new DashboardActions.GetForecastSuccess(forecast);
+          }),
+          catchError((error) => {
+            console.error(error);
+            return of();
+          })
+        )
+    )
+  );
+
+  // s
+  @Effect()
+  GetAQI = this._actions$.pipe(
+    ofType(DashboardActions.GET_AQI),
+    switchMap((action: any) =>
+      this.http.get(this.SERVER_URL + 'select-aqi', { params: new HttpParams().set('range', action.payload) }).pipe(
+        map((data: any) => {
+          return new DashboardActions.GetAQISuccess(data.aqi);
+        }),
+        catchError((error) => {
+          console.error(error);
+          return of();
+        })
+      )
+    )
+  );
+
 }
 

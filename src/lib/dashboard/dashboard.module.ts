@@ -30,7 +30,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // Service
-import { DataService } from './services/data.service';
 import { DashboardService } from './store/dashboard.service';
 import { dashboardReducer } from './store/dashboard.reducer';
 import { DashboardEffect } from './store/dashboard.effect';
@@ -84,7 +83,6 @@ import { D3ChartComponent } from './components/d3-chart/d3-chart.component';
     EffectsModule.forRoot([DashboardEffect])
   ],
   providers: [
-    DataService,
     DashboardService
   ],
 })
