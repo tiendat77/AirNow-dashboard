@@ -8,30 +8,19 @@ const initialState: DashboardState = {
   forecast: [],
   aqi: [],
   temperature: [],
-  humidity: []
+  humidity: [],
+  locations: []
 };
 
 export function dashboardReducer(state: DashboardState = initialState, action: DashboardActions.All) {
 
   switch (action.type) {
 
-    case DashboardActions.GET_STATISTICS: {
-      return {
-        ...state
-      };
-    }
-
     case DashboardActions.GET_STATISTICS_SUCCESS: {
       const statistics = action.payload;
       return {
         ...state,
         statistics
-      };
-    }
-
-    case DashboardActions.GET_FORECAST: {
-      return {
-        ...state
       };
     }
 
@@ -43,23 +32,11 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
       };
     }
 
-    case DashboardActions.GET_AQI: {
-      return {
-        ...state
-      };
-    }
-
     case DashboardActions.GET_AQI_SUCCESS: {
       const aqi = action.payload;
       return {
         ...state,
         aqi
-      };
-    }
-
-    case DashboardActions.GET_TEMPERATURE: {
-      return {
-        ...state
       };
     }
 
@@ -71,17 +48,19 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
       };
     }
 
-    case DashboardActions.GET_HUMIDITY: {
-      return {
-        ...state
-      };
-    }
-
     case DashboardActions.GET_HUMIDITY_SUCCESS: {
       const humidity = action.payload;
       return {
         ...state,
         humidity
+      };
+    }
+
+    case DashboardActions.GET_LOCATION_SUCCESS: {
+      const locations = action.payload;
+      return {
+        ...state,
+        locations
       };
     }
 

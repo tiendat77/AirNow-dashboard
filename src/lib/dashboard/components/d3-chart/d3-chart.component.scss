@@ -1,13 +1,15 @@
 .d3-chart {
   width: 100%;
-  height: 500px;
-}
+  min-height: 300px;
 
-.d3-chart .axis path,
-.d3-chart .axis line {
-  stroke: #26c6da;
-}
+  .axis {
+    path, line {
+      stroke: #26a7da;
+    }
 
-.d3-chart .axis text {
-  fill: #fcfcfc;
+    text {
+      fill: #fcfcfc;
+    }
+  }
+
 }

@@ -11,22 +11,13 @@ import { DashboardService } from '../../store/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  // This for test
-  statistic = MOCK.STATISTIC;
-  aqi = MOCK.AQI;
-  temperature = MOCK.TEMPERATURE;
-  humidity = MOCK.HUMIDITY;
-
   constructor(
     public dashboardService: DashboardService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.dashboardService.getStatistics();
+    this.dashboardService.getData();
   }
 
-  test() {
-    console.log('TEST: ', this.dashboardService.statistics);
-  }
 }

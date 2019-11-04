@@ -6,4 +6,5 @@ export interface DashboardState {
   aqi: AirModel[];
   temperature: AirModel[];
   humidity: AirModel[];
+  locations: string[];
 }

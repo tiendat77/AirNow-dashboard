@@ -13,8 +13,8 @@ import { DashboardState } from './dashboard.state';
 @Injectable()
 export class DashboardEffect {
 
-  // SERVER_URL = 'http://13.59.35.198:8000/api/';
-  SERVER_URL = 'http://127.0.0.1:8000/api/';
+  SERVER_URL = 'http://13.59.35.198:8000/api/';
+  // SERVER_URL = 'http://127.0.0.1:8000/api/';
 
   constructor(
     // tslint:disable: variable-name
@@ -59,7 +59,6 @@ export class DashboardEffect {
     )
   );
 
-  // s
   @Effect()
   GetAQI = this._actions$.pipe(
     ofType(DashboardActions.GET_AQI),
@@ -74,6 +73,19 @@ export class DashboardEffect {
         })
       )
     )
+  );
+
+  @Effect()
+  GetLocations = this._actions$.pipe(
+    ofType(DashboardActions.GET_LOCATION),
+    switchMap(() =>
+      this.http.get(this.SERVER_URL + 'locations').pipe(
+        map((data: any) => new DashboardActions.GetLocationSuccess(data.locations)),
+        catchError((error) => {
+          console.error(error);
+          return of();
+        })
+    ))
   );
 
 }

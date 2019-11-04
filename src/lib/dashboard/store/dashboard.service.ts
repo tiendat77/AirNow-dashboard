@@ -16,6 +16,7 @@ export class DashboardService {
   aqi: any[] = [];
   temperature: any[] = [];
   humidity: any[] = [];
+  locations: any[] = [];
 
   // tslint:disable-next-line: variable-name
   constructor( private _store: Store<DashboardState> ) {
@@ -39,6 +40,15 @@ export class DashboardService {
       this.humidity = data.humidity;
     });
 
+    this._store.select('dashboard').subscribe((data: any) => {
+      this.locations = data.locations;
+    });
+
+  }
+
+  getData() {
+    this._store.dispatch(new DashboardActions.GetStatistics());
+    this._store.dispatch(new DashboardActions.GetLocation());
   }
 
   getStatistics() {
@@ -59,6 +69,10 @@ export class DashboardService {
 
   getHumidity() {
     this._store.dispatch(new DashboardActions.GetHumidity());
+  }
+
+  getLocations() {
+    this._store.dispatch(new DashboardActions.GetLocation());
   }
 
   toggleMenu() {

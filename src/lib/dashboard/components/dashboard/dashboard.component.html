@@ -30,6 +30,15 @@
     </div>
   </section>
 
+  <div fxLayoutAlign="start center">
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let location of dashboardService.locations">{{ location }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <section class="section-chart">
     <div class="row" fxLayout="row" fxLayoutGap="15px">
       <div class="row-item" fxFlex="60">
@@ -42,7 +51,7 @@
             </app-chart> -->
 
             <!-- D3 chart -->
-            <d3-chart></d3-chart>
+            <d3-chart fxFlex></d3-chart>
           </div>
         </mat-card>
       </div>
