@@ -30,11 +30,20 @@
     </div>
   </section>
 
-  <div fxLayoutAlign="start center">
+  <div fxLayoutAlign="start center" fxLayoutGap="15px">
     <mat-form-field>
-      <mat-label>Location</mat-label>
+      <input type="text" placeholder="Location" aria-label="Location" matInput [formControl]="locationCtrl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+          {{ location }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field floatLabel="never">
+      <mat-label>Time</mat-label>
       <mat-select>
-        <mat-option *ngFor="let location of dashboardService.locations">{{ location }}</mat-option>
+        <mat-option *ngFor="let range of ranges" [value]="range.id" (click)="onSelectRange(range.id)">{{ range.value }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
