@@ -30,11 +30,11 @@
     </div>
   </section>
 
-  <div fxLayoutAlign="start center" fxLayoutGap="15px">
+  <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
     <mat-form-field>
-      <input type="text" placeholder="Location" aria-label="Location" matInput [formControl]="locationCtrl" [matAutocomplete]="auto">
+      <input class="input" type="text" placeholder="Location" aria-label="Location" matInput [formControl]="locationCtrl" [matAutocomplete]="auto" [(ngModel)]="currentLocation">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location" (click)="onSelectLocation(location)">
           {{ location }}
         </mat-option>
       </mat-autocomplete>
@@ -49,60 +49,33 @@
   </div>
 
   <section class="section-chart">
-    <div class="row" fxLayout="row" fxLayoutGap="15px">
+    <div class="row" fxLayout="row" fxLayoutGap="15px" fxFlex>
       <div class="row-item" fxFlex="60">
-        <mat-card class="card">
-          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+        <div class="card" fxFlex>
+          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch" fxFlex>
             <h4 class="h4-title">Air Quality Index Statistics</h4>
-            <!-- Ngx Line Chart -->
-            <!-- <app-chart fxFlex [results]="aqi" [xAxisLabel]="'Time'"
-              [xAxisLabel]="'AQI'">
-            </app-chart> -->
-
+            <div fxFlex></div>
             <!-- D3 chart -->
-            <d3-chart fxFlex></d3-chart>
+            <!-- <d3-chart></d3-chart> -->
           </div>
-        </mat-card>
+        </div>
       </div>
+
       <div class="row-item" fxFlex fxLayout="column" fxLayoutGap="15px">
-        <mat-card class="card" fxFlex="50">
+        <div class="card" fxFlex="50">
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Temperature Statistics</h4>
-            <!-- <app-chart fxFlex fxLayoutAlign="center center" [results]="temperature" [xAxisLabel]="'Time'"
-              [xAxisLabel]="'AQI'">
-            </app-chart> -->
+            <div fxFlex></div>
           </div>
-        </mat-card>
-        <mat-card class="card" fxFlex>
+        </div>
+
+        <div class="card" fxFlex>
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
             <h4 class="h4-title">Humidity Statistics</h4>
-            <!-- <app-chart fxFlex fxLayoutAlign="center center" [results]="humidity" [xAxisLabel]="'Time'"
-              [xAxisLabel]="'AQI'">
-            </app-chart> -->
+            <div fxFlex></div>
           </div>
-        </mat-card>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- <section class="section-3">
-    <div class="row" fxFlex>
-      <mat-tab-group fxFlex>
-        <mat-tab label="Now">
-          <ng-template matTabContent>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab label="This Week">
-          <ng-template matTabContent>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab label="This Month">
-          <ng-template matTabContent>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </section> -->
 </div>

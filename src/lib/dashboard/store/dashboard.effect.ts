@@ -62,10 +62,27 @@ export class DashboardEffect {
   @Effect()
   GetAQI = this._actions$.pipe(
     ofType(DashboardActions.GET_AQI),
-    switchMap((action: any) =>
-      this.http.get(this.SERVER_URL + 'select-aqi', { params: new HttpParams().set('range', action.payload) }).pipe(
+    switchMap((action: any) => {
+      const params = new HttpParams()
+        .set('range', action.payload.range)
+        .set('locaion', action.payload.location);
+      return of(params);
+    }),
+    switchMap((params: any) =>
+      this.http.get(this.SERVER_URL + 'select-aqi', { params }).pipe(
         map((data: any) => {
-          return new DashboardActions.GetAQISuccess(data.aqi);
+          const aqiList = [];
+          for (const aqi of data.aqi) {
+            const item = {};
+            item['value'] = aqi.aqi;
+            item['name'] = aqi.time;
+            aqiList.push(item);
+          }
+          const result = {
+            name: 'AQI',
+            series: aqiList
+          };
+          return new DashboardActions.GetAQISuccess(result);
         }),
         catchError((error) => {
           console.error(error);
@@ -80,7 +97,9 @@ export class DashboardEffect {
     ofType(DashboardActions.GET_LOCATION),
     switchMap(() =>
       this.http.get(this.SERVER_URL + 'locations').pipe(
-        map((data: any) => new DashboardActions.GetLocationSuccess(data.locations)),
+        map((data: any) => {
+          return new DashboardActions.GetLocationSuccess(data.locations);
+        }),
         catchError((error) => {
           console.error(error);
           return of();

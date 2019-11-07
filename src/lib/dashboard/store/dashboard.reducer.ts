@@ -34,6 +34,7 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
 
     case DashboardActions.GET_AQI_SUCCESS: {
       const aqi = action.payload;
+      console.log('aqi ->', aqi);
       return {
         ...state,
         aqi

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { DashboardState } from './dashboard.state';
 export class DashboardService {
 
   isMenuOpened = false;
+  aqi$: Observable<any>;
 
   statistics: any[] = [];
   forecast: any[] = [];
@@ -44,6 +46,7 @@ export class DashboardService {
       this.locations = data.locations;
     });
 
+    this.aqi$ = this._store.select('dashboard');
   }
 
   getData() {
@@ -68,6 +71,12 @@ export class DashboardService {
   }
 
   getHumidity() {
+    this._store.dispatch(new DashboardActions.GetHumidity());
+  }
+
+  getAir(params) {
+    this._store.dispatch(new DashboardActions.GetAQI(params));
+    this._store.dispatch(new DashboardActions.GetTemperature());
     this._store.dispatch(new DashboardActions.GetHumidity());
   }
 

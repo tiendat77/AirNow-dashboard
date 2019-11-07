@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
   rangeFillOpacity = 0.15;
   rotateXAxisTicks = true;
   roundDomains = false;
-  showLegend = true;
+  showLegend = false;
   showGridLines = true;
   showXAxisLabel = true;
   showYAxisLabel = true;

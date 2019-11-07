@@ -1,15 +1,21 @@
-.d3-chart {
-  width: 100%;
-  min-height: 300px;
+.axis {
+  font: 10px sans-serif;
 
-  .axis {
-    path, line {
-      stroke: #26a7da;
-    }
-
-    text {
-      fill: #fcfcfc;
-    }
+  path, line {
+    fill: none;
+    stroke: rgba($color: white, $alpha: 1.0);
+    shape-rendering: crispEdges;
   }
+}
 
+.axis-title {
+  fill: none;
+  stroke: rgb(38, 82, 230);
+  stroke-width: 0.5px;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }

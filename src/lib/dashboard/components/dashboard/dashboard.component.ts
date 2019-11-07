@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 import { DashboardService } from '../../store/dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { DashboardService } from '../../store/dashboard.service';
 export class DashboardComponent implements OnInit {
 
   locationCtrl = new FormControl();
+  currentLocation = '';
   filteredLocations: Observable<any>;
   ranges = [
     { id: 1, value: '1 day' },
@@ -24,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dashboardService: DashboardService,
+    private router: Router,
     private dialog: MatDialog
   ) { }
 
@@ -42,8 +45,44 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  onSelectLocation(location) {
+    console.log('select location ', location);
+    if (!location) {
+      this.currentLocation = location;
+    }
+    console.log('aqi$', this.dashboardService.aqi$);
+  }
+
   onSelectRange(id: number) {
-    console.log('range = ', id);
+    console.log('select range = ', id);
+    const params = {};
+
+    if (this.currentLocation !== '') {
+      params['location'] = this.currentLocation;
+    }
+
+    if (id) {
+      params['range'] = id.toString();
+    }
+
+    // this.updateUrlParams(params);
+    this.dashboardService.getAir(params);
+  }
+
+  updateUrlParams(params) {
+    const routerParameter = {};
+
+    if (!params && (!params.range || !params.location)) {
+      if (params.range) {
+        routerParameter['range'] = params.range;
+      }
+
+      if (params.location) {
+        routerParameter['location'] = params.location;
+      }
+
+      this.router.navigate(['/dashboar', routerParameter]);
+    }
   }
 
 }
