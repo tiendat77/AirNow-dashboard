@@ -21,7 +21,11 @@ $card-color: #222437;
 
   .action {
     .input {
-      color: white;
+      color: #fff;;
+    }
+
+    .placeholder {
+      color: #fff;
     }
   }
 
@@ -126,4 +130,22 @@ $card-color: #222437;
 
 ::ng-deep .mat-form-field-infix {
   font-size: 16px;
+}
+
+::ng-deep .mat-autocomplete-panel {
+  background-color: $base-color;
+  color: #fff !important;
+}
+
+::ng-deep .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover) {
+  background-color: $card-color;
+}
+
+::ng-deep .mat-select-panel {
+  background-color: $base-color;
+  color: #fff !important;
+}
+
+::ng-deep .mat-option-text {
+  color: #fff;
 }

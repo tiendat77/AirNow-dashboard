@@ -32,7 +32,8 @@
 
   <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
     <mat-form-field>
-      <input class="input" type="text" placeholder="Location" aria-label="Location" matInput [formControl]="locationCtrl" [matAutocomplete]="auto" [(ngModel)]="currentLocation">
+      <input class="input" type="text" matInput [formControl]="locationCtrl" [matAutocomplete]="auto" [(ngModel)]="currentLocation">
+      <mat-placeholder class="placeholder">Location</mat-placeholder>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let location of filteredLocations | async" [value]="location" (click)="onSelectLocation(location)">
           {{ location }}
@@ -41,7 +42,7 @@
     </mat-form-field>
 
     <mat-form-field floatLabel="never">
-      <mat-label>Time</mat-label>
+      <mat-label class="placeholder">Time</mat-label>
       <mat-select>
         <mat-option *ngFor="let range of ranges" [value]="range.id" (click)="onSelectRange(range.id)">{{ range.value }}</mat-option>
       </mat-select>
@@ -56,7 +57,7 @@
             <h4 class="h4-title">Air Quality Index Statistics</h4>
             <div fxFlex></div>
             <!-- D3 chart -->
-            <!-- <d3-chart></d3-chart> -->
+            <d3-chart></d3-chart>
           </div>
         </div>
       </div>

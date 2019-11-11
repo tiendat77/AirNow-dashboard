@@ -25,7 +25,15 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
     }
 
     case DashboardActions.GET_FORECAST_SUCCESS: {
-      const forecast = action.payload;
+      const data = action.payload;
+      const forecast = [];
+
+      for (let i = 0; i < 3; i++) { // Maximum 3 forecast
+        const dataObj = data[i];
+        dataObj['pollutant'] = Math.round(data[i].pollutant * 10) / 10;
+        forecast.push(dataObj);
+      }
+
       return {
         ...state,
         forecast

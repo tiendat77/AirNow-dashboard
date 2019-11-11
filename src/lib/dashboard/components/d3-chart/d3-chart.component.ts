@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
 
 import { STOCKS } from '../mock/mock';
 
@@ -14,7 +14,7 @@ import * as d3Axis from 'd3-axis';
   styleUrls: ['./d3-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class D3ChartComponent implements OnInit {
+export class D3ChartComponent implements OnInit, OnChanges {
   data = STOCKS;
   unit = 'AQI';
 
@@ -30,6 +30,14 @@ export class D3ChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildChart();
+  }
+
+  ngOnChanges() {
+    this.buildChart();
+  }
+
+  private buildChart() {
     this.initSvg();
     this.initAxis();
     this.drawAxis();
