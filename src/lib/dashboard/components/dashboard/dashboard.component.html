@@ -32,7 +32,7 @@
 
   <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
     <mat-form-field>
-      <input class="input" type="text" matInput [formControl]="locationCtrl" [matAutocomplete]="auto" [(ngModel)]="currentLocation">
+      <input class="input" type="text" matInput [formControl]="locationCtrl" [matAutocomplete]="auto">
       <mat-placeholder class="placeholder">Location</mat-placeholder>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let location of filteredLocations | async" [value]="location" (click)="onSelectLocation(location)">
@@ -54,10 +54,10 @@
       <div class="row-item" fxFlex="60">
         <div class="card" fxFlex>
           <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch" fxFlex>
-            <h4 class="h4-title">Air Quality Index Statistics</h4>
+            <!-- <h4 class="h4-title">Air Quality Index Statistics</h4> -->
             <div fxFlex></div>
             <!-- D3 chart -->
-            <d3-chart></d3-chart>
+            <d3-chart [data]="data"></d3-chart>
           </div>
         </div>
       </div>

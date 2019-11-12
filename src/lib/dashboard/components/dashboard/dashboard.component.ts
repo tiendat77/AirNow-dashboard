@@ -8,6 +8,8 @@ import { startWith, map } from 'rxjs/operators';
 import { DashboardService } from '../../store/dashboard.service';
 import { Router } from '@angular/router';
 
+import { AQI } from '../mock/mock';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,6 +25,8 @@ export class DashboardComponent implements OnInit {
     { id: 7, value: '7 days' },
     { id: 30, value: '30 days' },
   ];
+
+  data = AQI;
 
   constructor(
     public dashboardService: DashboardService,
@@ -47,10 +51,9 @@ export class DashboardComponent implements OnInit {
 
   onSelectLocation(location) {
     console.log('select location ', location);
-    if (!location) {
+    if (location) {
       this.currentLocation = location;
     }
-    console.log('aqi$', this.dashboardService.aqi$);
   }
 
   onSelectRange(id: number) {
@@ -66,6 +69,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // this.updateUrlParams(params);
+    console.log('param ', params);
     this.dashboardService.getAir(params);
   }
 

@@ -71,18 +71,7 @@ export class DashboardEffect {
     switchMap((params: any) =>
       this.http.get(this.SERVER_URL + 'select-aqi', { params }).pipe(
         map((data: any) => {
-          const aqiList = [];
-          for (const aqi of data.aqi) {
-            const item = {};
-            item['value'] = aqi.aqi;
-            item['name'] = aqi.time;
-            aqiList.push(item);
-          }
-          const result = {
-            name: 'AQI',
-            series: aqiList
-          };
-          return new DashboardActions.GetAQISuccess(result);
+          return new DashboardActions.GetAQISuccess(data.aqi);
         }),
         catchError((error) => {
           console.error(error);

@@ -25,11 +25,14 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
     }
 
     case DashboardActions.GET_FORECAST_SUCCESS: {
+      // console.log('forecast', action.payload);
       const data = action.payload;
       const forecast = [];
 
       for (let i = 0; i < 3; i++) { // Maximum 3 forecast
         const dataObj = data[i];
+        dataObj['temperature'] = Math.round(data[i].temperature);
+        dataObj['humidity'] = Math.round(data[i].humidity);
         dataObj['pollutant'] = Math.round(data[i].pollutant * 10) / 10;
         forecast.push(dataObj);
       }
@@ -41,11 +44,19 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
     }
 
     case DashboardActions.GET_AQI_SUCCESS: {
-      const aqi = action.payload;
-      console.log('aqi ->', aqi);
+      const data = action.payload;
+      const aqiList = [];
+      for (const aqi of data) {
+        const item = {};
+        item['y'] = aqi.aqi;
+        item['x'] = new Date(aqi.time);
+        aqiList.push(item);
+      }
+      console.log('aqi ->', aqiList);
+
       return {
         ...state,
-        aqi
+        aqi: aqiList
       };
     }
 

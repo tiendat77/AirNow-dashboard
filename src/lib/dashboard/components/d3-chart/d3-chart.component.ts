@@ -1,12 +1,6 @@
-import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, OnChanges, ElementRef, ViewChild } from '@angular/core';
 
-import { STOCKS } from '../mock/mock';
-
-import * as d3 from 'd3-selection';
-import * as d3Scale from 'd3-scale';
-import * as d3Shape from 'd3-shape';
-import * as d3Array from 'd3-array';
-import * as d3Axis from 'd3-axis';
+import * as CanvasJS from '../../../../assets/canvasjs.min';
 
 @Component({
   selector: 'd3-chart',
@@ -14,80 +8,40 @@ import * as d3Axis from 'd3-axis';
   styleUrls: ['./d3-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class D3ChartComponent implements OnInit, OnChanges {
-  data = STOCKS;
-  unit = 'AQI';
-
-  private margin = {top: 20, right: 20, bottom: 30, left: 50};
-  private width: number;
-  private height: number;
-  private x: any;
-  private y: any;
-  private svg: any;
-  private line: d3Shape.Line<[number, number]>;
-
-  constructor() {
-  }
+export class D3ChartComponent implements OnInit {
+  @Input() data: Array<any>;
 
   ngOnInit() {
-    this.buildChart();
+    const dataPoints = [];
+    let y = 0;
+    for ( let i = 0; i < 10000; i++ ) {
+      y += Math.round(5 + Math.random() * (-5 - 5));
+      dataPoints.push({ y: y});
+    }
+    let chart = new CanvasJS.Chart('chartContainer', {
+      theme: 'dark2', // "light1", "dark1", "dark2"
+      backgroundColor: '#222437',
+      zoomEnabled: true,
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: 'Air Quality Index Statistics'
+      },
+      axisY: {
+        title: 'AQI',
+      },
+      data: [
+      {
+        type: 'line',
+        dataPoints: this.data
+      }]
+    });
+
+    chart.render();
   }
 
-  ngOnChanges() {
-    this.buildChart();
-  }
-
-  private buildChart() {
-    this.initSvg();
-    this.initAxis();
-    this.drawAxis();
-    this.drawLine();
-  }
-
-  private initSvg() {
-      this.svg = d3.select('svg')
-          .append('g')
-          .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-  }
-
-  private initAxis() {
-      this.x = d3Scale.scaleTime().range([0, this.width]);
-      this.y = d3Scale.scaleLinear().range([this.height, 0]);
-      this.x.domain(d3Array.extent(this.data, (d) => d.date ));
-      this.y.domain(d3Array.extent(this.data, (d) => d.value ));
-  }
-
-  private drawAxis() {
-
-      this.svg.append('g')
-          .attr('class', 'axis axis--x')
-          .attr('transform', 'translate(0,' + this.height + ')')
-          .call(d3Axis.axisBottom(this.x));
-
-      this.svg.append('g')
-          .attr('class', 'axis axis--y')
-          .call(d3Axis.axisLeft(this.y))
-          .append('text')
-          .attr('class', 'axis-title')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', 6)
-          .attr('dy', '.71em')
-          .style('text-anchor', 'end')
-          .text(this.unit);
-  }
-
-  private drawLine() {
-      this.line = d3Shape.line()
-          .x( (d: any) => this.x(d.time) )
-          .y( (d: any) => this.y(d.value) );
-
-      this.svg.append('path')
-          .datum(this.data)
-          .attr('class', 'line')
-          .attr('d', this.line);
-  }
-
-  private resize() {
+  test() {
+    console.log('test', this.data);
   }
 
 }
