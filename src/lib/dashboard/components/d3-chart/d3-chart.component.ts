@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation, OnChanges, ElementRef, ViewChild } from '@angular/core';
 
 import * as CanvasJS from '../../../../assets/canvasjs.min';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'd3-chart',
@@ -9,39 +10,46 @@ import * as CanvasJS from '../../../../assets/canvasjs.min';
   encapsulation: ViewEncapsulation.None
 })
 export class D3ChartComponent implements OnInit {
-  @Input() data: Array<any>;
+  @Input() data: BehaviorSubject<any[]>;
+  dataPoints: Array<any>;
 
   ngOnInit() {
-    const dataPoints = [];
-    let y = 0;
-    for ( let i = 0; i < 10000; i++ ) {
-      y += Math.round(5 + Math.random() * (-5 - 5));
-      dataPoints.push({ y: y});
-    }
-    let chart = new CanvasJS.Chart('chartContainer', {
+    this.data.subscribe( data => {
+      this.dataPoints = data;
+      console.log('got data: ', data);
+      this.renderChart();
+    });
+  }
+
+  renderChart() {
+    const chart = new CanvasJS.Chart('chartContainer', {
       theme: 'dark2', // "light1", "dark1", "dark2"
       backgroundColor: '#222437',
       zoomEnabled: true,
       animationEnabled: true,
       exportEnabled: true,
+
       title: {
         text: 'Air Quality Index Statistics'
       },
+
+      axisX: {
+        valueFormatString: 'DD-MMM' ,
+        labelAngle: -50
+      },
+
       axisY: {
         title: 'AQI',
       },
+
       data: [
       {
         type: 'line',
-        dataPoints: this.data
+        dataPoints: this.dataPoints
       }]
     });
 
     chart.render();
-  }
-
-  test() {
-    console.log('test', this.data);
   }
 
 }

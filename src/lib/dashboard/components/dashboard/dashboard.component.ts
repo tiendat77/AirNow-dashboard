@@ -26,7 +26,9 @@ export class DashboardComponent implements OnInit {
     { id: 30, value: '30 days' },
   ];
 
-  data = AQI;
+  data = new Observable(subscriber => {
+    subscriber.next(AQI);
+  });
 
   constructor(
     public dashboardService: DashboardService,
@@ -41,6 +43,21 @@ export class DashboardComponent implements OnInit {
       startWith(''),
       map(name => name ? this.filterLocation(name) : this.dashboardService.locations)
     );
+  }
+
+  generate() { // this function just for test - delete it
+    const limit = 1000;
+    let y = 0;
+    const dataPoints = [];
+    for (let i = 0; i < limit; i += 1) {
+      y += (Math.random() * 10 - 5);
+      dataPoints.push({
+        x: i - limit / 2,
+        y: y
+      });
+    }
+
+    return dataPoints;
   }
 
   filterLocation(value: string) {

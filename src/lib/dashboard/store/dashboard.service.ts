@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
 
   isMenuOpened = false;
-  aqi$: Observable<any>;
+  aqi$ = new BehaviorSubject([]);
 
   statistics: any[] = [];
   forecast: any[] = [];
@@ -31,7 +31,7 @@ export class DashboardService {
     });
 
     this._store.select('dashboard').subscribe((data: any) => {
-      this.aqi = data.aqi;
+      this.aqi$.next(data.aqi);
     });
 
     this._store.select('dashboard').subscribe((data: any) => {
@@ -46,7 +46,6 @@ export class DashboardService {
       this.locations = data.locations;
     });
 
-    this.aqi$ = this._store.select('dashboard');
   }
 
   getData() {
