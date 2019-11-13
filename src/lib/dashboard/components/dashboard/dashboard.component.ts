@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
     { id: 1, value: '1 day' },
     { id: 7, value: '7 days' },
     { id: 30, value: '30 days' },
+    { id: 100, value: 'test 100' },
   ];
 
   data = new Observable(subscriber => {
@@ -67,14 +68,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelectLocation(location) {
-    console.log('select location ', location);
     if (location) {
       this.currentLocation = location;
     }
   }
 
   onSelectRange(id: number) {
-    console.log('select range = ', id);
     const params = {};
 
     if (this.currentLocation !== '') {

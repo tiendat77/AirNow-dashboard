@@ -1,10 +1,3 @@
-import { StatisticsModel, ForecastModel, AirModel } from './dashboard.model';
+import { Map } from 'immutable';
 
-export interface DashboardState {
-  statistics: StatisticsModel[];
-  forecast: ForecastModel[];
-  aqi: AirModel[];
-  temperature: AirModel[];
-  humidity: AirModel[];
-  locations: string[];
-}
+export type DashboardState = Map<string, any>;

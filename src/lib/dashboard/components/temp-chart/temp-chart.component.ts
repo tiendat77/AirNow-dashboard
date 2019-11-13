@@ -4,12 +4,12 @@ import * as CanvasJS from '../../../../assets/canvasjs.min';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'd3-chart',
-  templateUrl: './d3-chart.component.html',
-  styleUrls: ['./d3-chart.component.scss'],
+  selector: 'temp-chart',
+  templateUrl: './temp-chart.component.html',
+  styleUrls: ['./temp-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class D3ChartComponent implements OnInit {
+export class TempChartComponent implements OnInit {
 
   @Input() data: Observable<any[]>;
   @Input() title: string;
@@ -25,7 +25,7 @@ export class D3ChartComponent implements OnInit {
   }
 
   renderChart() {
-    const chart = new CanvasJS.Chart('AQIchartContainer', {
+    const chart = new CanvasJS.Chart('tempChartContainer', {
       theme: 'dark2', // "light1", "dark1", "dark2"
       backgroundColor: '#222437',
       zoomEnabled: true,
@@ -53,5 +53,6 @@ export class D3ChartComponent implements OnInit {
 
     chart.render();
   }
+
 
 }

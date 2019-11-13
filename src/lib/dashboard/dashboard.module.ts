@@ -42,6 +42,9 @@ import { HeaderBarComponent } from './components/header-bar/header-bar.component
 import { ChartComponent } from './components/chart/chart.component';
 import { ForecastComponent } from './components/dashboard/forecast/forecast.component';
 import { D3ChartComponent } from './components/d3-chart/d3-chart.component';
+import { AqiChartComponent } from './components/aqi-chart/aqi-chart.component';
+import { TempChartComponent } from './components/temp-chart/temp-chart.component';
+import { HumiChartComponent } from './components/humi-chart/humi-chart.component';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { D3ChartComponent } from './components/d3-chart/d3-chart.component';
     HeaderBarComponent,
     ChartComponent,
     ForecastComponent,
-    D3ChartComponent
+    D3ChartComponent,
+    AqiChartComponent,
+    TempChartComponent,
+    HumiChartComponent
   ],
   imports: [
     CommonModule,

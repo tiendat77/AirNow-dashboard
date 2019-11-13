@@ -4,12 +4,12 @@ import * as CanvasJS from '../../../../assets/canvasjs.min';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'd3-chart',
-  templateUrl: './d3-chart.component.html',
-  styleUrls: ['./d3-chart.component.scss'],
+  selector: 'aqi-chart',
+  templateUrl: './aqi-chart.component.html',
+  styleUrls: ['./aqi-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class D3ChartComponent implements OnInit {
+export class AqiChartComponent implements OnInit {
 
   @Input() data: Observable<any[]>;
   @Input() title: string;

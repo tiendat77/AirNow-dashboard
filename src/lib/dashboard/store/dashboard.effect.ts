@@ -4,8 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
-import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
 import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
@@ -31,7 +31,7 @@ export class DashboardEffect {
       this.http.get(this.SERVER_URL + 'statistics')
         .pipe(
           map((data: any) => {
-            return new DashboardActions.GetStatisticsSuccess(data.statistics);
+            return new DashboardActions.FetchStatistic(data.statistics);
           }),
           catchError((error) => {
             console.error(error);
@@ -49,7 +49,7 @@ export class DashboardEffect {
         .pipe(
           map((data: any) => {
             const forecast = data.forecast;
-            return new DashboardActions.GetForecastSuccess(forecast);
+            return new DashboardActions.FetchForecast(forecast);
           }),
           catchError((error) => {
             console.error(error);
@@ -71,14 +71,58 @@ export class DashboardEffect {
     switchMap((params: any) =>
       this.http.get(this.SERVER_URL + 'select-aqi', { params }).pipe(
         map((data: any) => {
-          return new DashboardActions.GetAQISuccess(data.aqi);
+          return new DashboardActions.FetchAQI(data.aqi);
         }),
         catchError((error) => {
           console.error(error);
           return of();
         })
       )
-    )
+    ),
+  );
+
+  @Effect()
+  GetTemperature = this._actions$.pipe(
+    ofType(DashboardActions.GET_TEMPERATURE),
+    switchMap((action: any) => {
+      const params = new HttpParams()
+        .set('range', action.payload.range)
+        .set('locaion', action.payload.location);
+      return of(params);
+    }),
+    switchMap((params: any) =>
+      this.http.get(this.SERVER_URL + 'select-temperature', { params }).pipe(
+        map((data: any) => {
+          return new DashboardActions.FetchTemperature(data.temperature);
+        }),
+        catchError((error) => {
+          console.error(error);
+          return of();
+        })
+      )
+    ),
+  );
+
+  @Effect()
+  GetHumidity = this._actions$.pipe(
+    ofType(DashboardActions.GET_HUMIDITY),
+    switchMap((action: any) => {
+      const params = new HttpParams()
+        .set('range', action.payload.range)
+        .set('locaion', action.payload.location);
+      return of(params);
+    }),
+    switchMap((params: any) =>
+      this.http.get(this.SERVER_URL + 'select-humidity', { params }).pipe(
+        map((data: any) => {
+          return new DashboardActions.FetchHumidity(data.humidity);
+        }),
+        catchError((error) => {
+          console.error(error);
+          return of();
+        })
+      )
+    ),
   );
 
   @Effect()
@@ -87,7 +131,7 @@ export class DashboardEffect {
     switchMap(() =>
       this.http.get(this.SERVER_URL + 'locations').pipe(
         map((data: any) => {
-          return new DashboardActions.GetLocationSuccess(data.locations);
+          return new DashboardActions.FetchLocation(data.locations);
         }),
         catchError((error) => {
           console.error(error);

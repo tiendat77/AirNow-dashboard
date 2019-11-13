@@ -1,30 +1,29 @@
+import { Map } from 'immutable';
+
 import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
 
 type DashboardActions = DashboardActions.All;
 
-const initialState: DashboardState = {
+const initialState: DashboardState = Map({
   statistics: [],
   forecast: [],
   aqi: [],
   temperature: [],
   humidity: [],
   locations: []
-};
+});
 
 export function dashboardReducer(state: DashboardState = initialState, action: DashboardActions.All) {
 
   switch (action.type) {
 
-    case DashboardActions.GET_STATISTICS_SUCCESS: {
+    case DashboardActions.FETCH_STATISTICS: {
       const statistics = action.payload;
-      return {
-        ...state,
-        statistics
-      };
+      return state.set('statistics', statistics);
     }
 
-    case DashboardActions.GET_FORECAST_SUCCESS: {
+    case DashboardActions.FETCH_FORECAST: {
       // console.log('forecast', action.payload);
       const data = action.payload;
       const forecast = [];
@@ -37,13 +36,10 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
         forecast.push(dataObj);
       }
 
-      return {
-        ...state,
-        forecast
-      };
+      return state.set('forecast', forecast);
     }
 
-    case DashboardActions.GET_AQI_SUCCESS: {
+    case DashboardActions.FETCH_AQI: {
       const data = action.payload;
       const aqiList = [];
       for (const aqi of data) {
@@ -52,36 +48,39 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
         item['x'] = new Date(aqi.time);
         aqiList.push(item);
       }
-      console.log('aqi ->', aqiList);
 
-      return {
-        ...state,
-        aqi: aqiList
-      };
+      return state.set('aqi', aqiList);
     }
 
-    case DashboardActions.GET_TEMPERATURE_SUCCESS: {
-      const temperature = action.payload;
-      return {
-        ...state,
-        temperature
-      };
+    case DashboardActions.FETCH_TEMPERATURE: {
+      const data = action.payload;
+      const temperature = [];
+      for (const temp of data) {
+        const item = {};
+        item['x'] = new Date(temp.time);
+        item['y'] = temp.degrees;
+        temperature.push(item);
+      }
+
+      return state.set('temperature', temperature);
     }
 
-    case DashboardActions.GET_HUMIDITY_SUCCESS: {
-      const humidity = action.payload;
-      return {
-        ...state,
-        humidity
-      };
+    case DashboardActions.FETCH_HUMIDITY: {
+      const data = action.payload;
+      const humidity = [];
+      for (const humi of data) {
+        const item = {};
+        item['x'] = new Date(humi.time);
+        item['y'] = humi.humidity;
+        humidity.push(item);
+      }
+
+      return state.set('humidity', humidity);
     }
 
-    case DashboardActions.GET_LOCATION_SUCCESS: {
+    case DashboardActions.FETCH_LOCATION: {
       const locations = action.payload;
-      return {
-        ...state,
-        locations
-      };
+      return state.set('locations', locations);
     }
 
     default:

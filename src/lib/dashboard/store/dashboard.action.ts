@@ -1,24 +1,24 @@
 import { Action } from '@ngrx/store';
 
 export const GET_STATISTICS = '[Dashboard] Get Statistics';
-export const GET_STATISTICS_SUCCESS = '[Dashboard] Get Statistics Success';
+export const FETCH_STATISTICS = '[Dashboard] Fetch Statistics';
 export const GET_FORECAST = '[Dashboard] Get Forecast';
-export const GET_FORECAST_SUCCESS = '[Dashboard] Get Forecast Success';
+export const FETCH_FORECAST = '[Dashboard] Fetch Forecast';
 export const GET_AQI = '[Dashboard] Get AQI';
-export const GET_AQI_SUCCESS = '[Dashboard] Get AQI Success';
+export const FETCH_AQI = '[Dashboard] Fetch AQI';
 export const GET_TEMPERATURE = '[Dashboard] Get Temperature';
-export const GET_TEMPERATURE_SUCCESS = '[Dashboard] Get Temperature Success';
+export const FETCH_TEMPERATURE = '[Dashboard] Fetch Temperature';
 export const GET_HUMIDITY = '[Dashboard] Get Humidity';
-export const GET_HUMIDITY_SUCCESS = '[Dashboard] Get Humidity Success';
+export const FETCH_HUMIDITY = '[Dashboard] Fetch Humidity';
 export const GET_LOCATION = '[Dashboard] Get Locations';
-export const GET_LOCATION_SUCCESS = '[Dashboard] Get Locations Success';
+export const FETCH_LOCATION = '[Dashboard] Fetch Locations';
 
 export class GetStatistics implements Action {
   readonly type = GET_STATISTICS;
 }
 
-export class GetStatisticsSuccess implements Action {
-  readonly type = GET_STATISTICS_SUCCESS;
+export class FetchStatistic implements Action {
+  readonly type = FETCH_STATISTICS;
   constructor(public payload: any) { }
 }
 
@@ -26,8 +26,8 @@ export class GetForecast implements Action {
   readonly type = GET_FORECAST;
 }
 
-export class GetForecastSuccess implements Action {
-  readonly type = GET_FORECAST_SUCCESS;
+export class FetchForecast implements Action {
+  readonly type = FETCH_FORECAST;
   constructor(public payload: any) { }
 }
 
@@ -36,26 +36,28 @@ export class GetAQI implements Action {
   constructor(public payload: any) { }
 }
 
-export class GetAQISuccess implements Action {
-  readonly type = GET_AQI_SUCCESS;
+export class FetchAQI implements Action {
+  readonly type = FETCH_AQI;
   constructor(public payload: any) { }
 }
 
 export class GetTemperature implements Action {
   readonly type = GET_TEMPERATURE;
+  constructor(public payload: any) { }
 }
 
-export class GetTemperatureSuccess implements Action {
-  readonly type = GET_TEMPERATURE_SUCCESS;
+export class FetchTemperature implements Action {
+  readonly type = FETCH_TEMPERATURE;
   constructor(public payload: any) { }
 }
 
 export class GetHumidity implements Action {
   readonly type = GET_HUMIDITY;
+  constructor(public payload: any) { }
 }
 
-export class GetHumiditySuccess implements Action {
-  readonly type = GET_HUMIDITY_SUCCESS;
+export class FetchHumidity implements Action {
+  readonly type = FETCH_HUMIDITY;
   constructor(public payload: any) { }
 }
 
@@ -63,14 +65,14 @@ export class GetLocation implements Action {
   readonly type = GET_LOCATION;
 }
 
-export class GetLocationSuccess implements Action {
-  readonly type = GET_LOCATION_SUCCESS;
+export class FetchLocation implements Action {
+  readonly type = FETCH_LOCATION;
   constructor(public payload: any) { }
 }
 
-export type All = GetStatistics | GetStatisticsSuccess |
-                  GetForecast | GetForecastSuccess |
-                  GetAQI | GetAQISuccess |
-                  GetTemperature | GetTemperatureSuccess |
-                  GetHumidity | GetHumiditySuccess |
-                  GetLocation | GetLocationSuccess;
+export type All = GetStatistics | FetchStatistic |
+                  GetForecast | FetchForecast |
+                  GetAQI | FetchAQI |
+                  GetTemperature | FetchTemperature |
+                  GetHumidity | FetchHumidity |
+                  GetLocation | FetchLocation;
