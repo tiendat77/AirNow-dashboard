@@ -54,6 +54,18 @@ $card-color: #222437;
     padding: 30px;
   }
 
+  .chart-aqi {
+    min-height: 650px;
+  }
+
+  .chart-temperature {
+    min-height: 360px;
+  }
+
+  .chart-humidity {
+    min-height: 360px;
+  }
+
   .h3-statis {
     color: #fff;
     font-size: 32px;

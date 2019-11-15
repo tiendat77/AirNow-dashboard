@@ -39,12 +39,11 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './components/main/main.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
-import { ChartComponent } from './components/chart/chart.component';
 import { ForecastComponent } from './components/dashboard/forecast/forecast.component';
-import { D3ChartComponent } from './components/d3-chart/d3-chart.component';
-import { AqiChartComponent } from './components/aqi-chart/aqi-chart.component';
-import { TempChartComponent } from './components/temp-chart/temp-chart.component';
-import { HumiChartComponent } from './components/humi-chart/humi-chart.component';
+import { D3ChartComponent } from './components/chart/d3-chart/d3-chart.component';
+import { AqiChartComponent } from './components/chart/aqi-chart/aqi-chart.component';
+import { TempChartComponent } from './components/chart/temp-chart/temp-chart.component';
+import { HumiChartComponent } from './components/chart/humi-chart/humi-chart.component';
 
 
 @NgModule({
@@ -52,7 +51,6 @@ import { HumiChartComponent } from './components/humi-chart/humi-chart.component
     MainComponent,
     DashboardComponent,
     HeaderBarComponent,
-    ChartComponent,
     ForecastComponent,
     D3ChartComponent,
     AqiChartComponent,

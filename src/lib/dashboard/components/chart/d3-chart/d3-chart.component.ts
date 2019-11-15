@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
-import * as CanvasJS from '../../../../assets/canvasjs.min';
+import * as CanvasJS from '../../../../../assets/canvasjs.min';
 import { Observable } from 'rxjs';
 
 @Component({

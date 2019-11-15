@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
       params['range'] = id.toString();
     }
 
-    // this.updateUrlParams(params);
+    this.updateUrlParams(params);
     console.log('param ', params);
     this.dashboardService.getAir(params);
   }
@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
   updateUrlParams(params) {
     const routerParameter = {};
 
-    if (!params && (!params.range || !params.location)) {
+    if (params && (params.range || params.location)) {
       if (params.range) {
         routerParameter['range'] = params.range;
       }
@@ -101,8 +101,11 @@ export class DashboardComponent implements OnInit {
         routerParameter['location'] = params.location;
       }
 
-      this.router.navigate(['/dashboar', routerParameter]);
+      this.router.navigate(['/dashboard/home', routerParameter]);
     }
+
+    // const range = params.range ? params.range : null;
+    // this.router.navigate(['/dashboard/home']);
   }
 
 }

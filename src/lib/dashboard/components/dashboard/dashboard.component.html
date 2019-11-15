@@ -50,39 +50,33 @@
   </div>
 
   <section class="section-chart">
-    <div class="row" fxLayout="column" fxLayoutGap="15px" fxFlex>
-      <div class="row-item" fxFlex>
-        <div class="card" fxFlex>
-          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+    <div class="row" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px" fxFlex>
+      <div class="row-item" fxFlex="60">
+        <div class="card" fxLayoutAlign="center stretch" fxFlex>
+          <div class="card-body chart-aqi" fxFlex>
             <aqi-chart
-              [data]="dashboardService.aqi$"
-              [title]="'Air Quality Index Statistics'"
-              [titleYAxis]="'AQI'">
+              [data]="dashboardService.aqi$">
             </aqi-chart>
           </div>
         </div>
       </div>
 
       <div class="row-item" fxFlex>
-        <div class="card" fxFlex>
-          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-            <temp-chart
-              [data]="dashboardService.temperature$"
-              [title]="'Temperature Statistics'"
-              [titleYAxis]="'°C'">
-            </temp-chart>
+        <div fxLayout="column" fxLayoutGap="15px" fxFlex>
+          <div class="card" fxFlex="50">
+            <div class="card-body chart-temperature" fxFlex>
+              <temp-chart
+                [data]="dashboardService.temperature$">
+              </temp-chart>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row-item" fxFlex>
-        <div class="card" fxFlex>
-          <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-            <humi-chart
-              [data]="dashboardService.humidity$"
-              [title]="'Humidity Statistics'"
-              [titleYAxis]="'%'">
-            </humi-chart>
+          <div class="card" fxFlex="50">
+            <div class="card-body chart-humidity" fxFlex>
+              <humi-chart
+                [data]="dashboardService.humidity$">
+              </humi-chart>
+            </div>
           </div>
         </div>
       </div>
@@ -90,41 +84,3 @@
   </section>
 
 </div>
-
-<!-- <section class="section-chart">
-  <div class="row" fxLayout="row" fxLayoutGap="15px" fxFlex>
-    <div class="row-item" fxFlex="60">
-      <div class="card" fxFlex>
-        <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-          <d3-chart
-            [data]="dashboardService.aqi$"
-            [title]="'Air Quality Index Statistics'"
-            [titleYAxis]="'AQI'">
-          </d3-chart>
-        </div>
-      </div>
-    </div>
-
-    <div class="row-item" fxFlex fxLayout="column" fxLayoutGap="15px">
-      <div class="card" fxFlex="50">
-        <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-          <d3-chart
-            [data]="dashboardService.temperature$"
-            [title]="'Temperature Statistics'"
-            [titleYAxis]="'°C'">
-          </d3-chart>
-        </div>
-      </div>
-
-      <div class="card" fxFlex>
-        <div class="card-body" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-          <d3-chart
-            [data]="dashboardService.humidity$"
-            [title]="'Humidity Statistics'"
-            [titleYAxis]="'%'">
-          </d3-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->

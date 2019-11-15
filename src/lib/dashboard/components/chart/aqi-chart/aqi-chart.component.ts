@@ -1,19 +1,17 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
-import * as CanvasJS from '../../../../assets/canvasjs.min';
+import * as CanvasJS from '../../../../../assets/canvasjs.min';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'humi-chart',
-  templateUrl: './humi-chart.component.html',
-  styleUrls: ['./humi-chart.component.scss'],
+  selector: 'aqi-chart',
+  templateUrl: './aqi-chart.component.html',
+  styleUrls: ['./aqi-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HumiChartComponent implements OnInit {
+export class AqiChartComponent implements OnInit {
 
   @Input() data: Observable<any[]>;
-  @Input() title: string;
-  @Input() titleYAxis: string;
   dataPoints: Array<any>;
 
   ngOnInit() {
@@ -25,14 +23,19 @@ export class HumiChartComponent implements OnInit {
   }
 
   renderChart() {
-    const chart = new CanvasJS.Chart('humiChartContainer', {
+    const chart = new CanvasJS.Chart('AQIchartContainer', {
       theme: 'dark2', // "light1", "dark1", "dark2"
       backgroundColor: '#222437',
       zoomEnabled: true,
       animationEnabled: true,
 
       title: {
-        text: this.title
+        text: 'Air Quality Index Statistics',
+        fontSize: 25,
+      },
+
+      toolTip: {
+        shared: true
       },
 
       axisX: {
@@ -41,18 +44,25 @@ export class HumiChartComponent implements OnInit {
       },
 
       axisY: {
-        title: this.titleYAxis,
+        labelFontSize: 20,
+        title: 'AQI',
+        includeZero: false,
+        scaleBreaks: {
+          autoCalculate: true
+        },
       },
 
       data: [
       {
         type: 'line',
+        name: 'AQI',
+        color: '#ab47bc',
+        lineColor: '#ab47bc',
         dataPoints: this.dataPoints
       }]
     });
 
     chart.render();
   }
-
 
 }

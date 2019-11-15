@@ -1,19 +1,17 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
-import * as CanvasJS from '../../../../assets/canvasjs.min';
+import * as CanvasJS from '../../../../../assets/canvasjs.min';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'temp-chart',
-  templateUrl: './temp-chart.component.html',
-  styleUrls: ['./temp-chart.component.scss'],
+  selector: 'humi-chart',
+  templateUrl: './humi-chart.component.html',
+  styleUrls: ['./humi-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TempChartComponent implements OnInit {
+export class HumiChartComponent implements OnInit {
 
   @Input() data: Observable<any[]>;
-  @Input() title: string;
-  @Input() titleYAxis: string;
   dataPoints: Array<any>;
 
   ngOnInit() {
@@ -25,14 +23,19 @@ export class TempChartComponent implements OnInit {
   }
 
   renderChart() {
-    const chart = new CanvasJS.Chart('tempChartContainer', {
+    const chart = new CanvasJS.Chart('humiChartContainer', {
       theme: 'dark2', // "light1", "dark1", "dark2"
       backgroundColor: '#222437',
       zoomEnabled: true,
       animationEnabled: true,
 
       title: {
-        text: this.title
+        text: 'Humidity Statistics',
+        fontSize: 25,
+      },
+
+      toolTip: {
+        shared: true
       },
 
       axisX: {
@@ -41,12 +44,20 @@ export class TempChartComponent implements OnInit {
       },
 
       axisY: {
-        title: this.titleYAxis,
+        labelFontSize: 20,
+        title: '%',
+        includeZero: false,
+        scaleBreaks: {
+          autoCalculate: true
+        },
       },
 
       data: [
       {
         type: 'line',
+        name: 'Humidity',
+        color: '#03a9f4',
+        lineColor: '#03a9f4',
         dataPoints: this.dataPoints
       }]
     });
