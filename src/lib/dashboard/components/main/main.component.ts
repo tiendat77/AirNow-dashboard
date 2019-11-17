@@ -9,7 +9,8 @@ import { DashboardService } from '../../store/dashboard.service';
 export class MainComponent implements OnInit {
 
   navitem = [
-    { title: 'Dashboard', link: '/dashboard' }
+    { title: 'Dashboard', link: '/dashboard' },
+    { title: 'Users', link: '/dashboard/user' }
   ];
 
   constructor(

@@ -1,0 +1,63 @@
+<mat-sidenav-container class="user-container">
+  <mat-sidenav #userSidenav class="sidenav" position="end" (close)="closeSidenav()">
+    <mat-toolbar class="toolbar-header" fxLayoutAlign="space-between center">
+      <span>{{ isCreate==='Create'?'Create':'Edit' }} User</span>
+      <button mat-icon-button matTooltip="Close" class="clear" (click)="userSidenav.close()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <span>ahiahi</span>
+  </mat-sidenav>
+
+  <!-- Main -->
+  <div fxLayout="column" class="main">
+    <div class="table-container">
+      <ngx-datatable
+        id="table"
+        [rows]="rows"
+        [limit]="20"
+        [columnMode]="'flex'"
+        [headerHeight]="40"
+        [footerHeight]="40"
+        [rowHeight]="40"
+        [reorderable]="reorderable"
+        [selectionType]="'single'"
+        (select)="onSelect($event)"
+        [sorts]="[{ prop: 'id', dir: 'asc' }]"
+        class="dark table-dark">
+  
+        <!--ID-->
+        <ngx-datatable-column name="ID" prop="id" [flexGrow]="1">
+        </ngx-datatable-column>
+  
+        <!--NAME-->
+        <ngx-datatable-column name="Name" prop="name" [flexGrow]="2">
+        </ngx-datatable-column>
+  
+        <!--GENDER-->
+        <ngx-datatable-column name="Gender" prop="gender" [flexGrow]="2">
+        </ngx-datatable-column>
+  
+        <!--COMPANY-->
+        <ngx-datatable-column name="Company" prop="company" [flexGrow]="2">
+        </ngx-datatable-column>
+  
+        <!-- RESET PASSWORD -->
+        <ngx-datatable-column name="" prop="" [flexGrow]=".6">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div fxLayoutAlign="center center">
+              <button mat-icon-button color="primary" class="reset-pwd" matTooltip="Reset Password" matTooltipPosition="before" 
+                (click)="resetPassword($event, row)">
+                <mat-icon>lock</mat-icon>
+              </button> 
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+  
+  
+      </ngx-datatable>
+    </div>
+  </div>
+
+</mat-sidenav-container>

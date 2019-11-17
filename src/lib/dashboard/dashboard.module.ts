@@ -24,6 +24,8 @@ import {
 
 } from '@angular/material';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 // Ngrx
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -44,6 +46,7 @@ import { D3ChartComponent } from './components/chart/d3-chart/d3-chart.component
 import { AqiChartComponent } from './components/chart/aqi-chart/aqi-chart.component';
 import { TempChartComponent } from './components/chart/temp-chart/temp-chart.component';
 import { HumiChartComponent } from './components/chart/humi-chart/humi-chart.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -55,7 +58,8 @@ import { HumiChartComponent } from './components/chart/humi-chart/humi-chart.com
     D3ChartComponent,
     AqiChartComponent,
     TempChartComponent,
-    HumiChartComponent
+    HumiChartComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +87,7 @@ import { HumiChartComponent } from './components/chart/humi-chart/humi-chart.com
     MatProgressBarModule,
 
     NgxChartsModule,
+    NgxDatatableModule,
     StoreModule.forRoot({ dashboard: dashboardReducer }),
     EffectsModule.forRoot([DashboardEffect])
   ],

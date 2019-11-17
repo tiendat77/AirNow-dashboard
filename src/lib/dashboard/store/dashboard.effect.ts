@@ -13,8 +13,8 @@ import { DashboardState } from './dashboard.state';
 @Injectable()
 export class DashboardEffect {
 
-  SERVER_URL = 'http://13.59.35.198:8000/api/';
-  // SERVER_URL = 'http://127.0.0.1:8000/api/';
+  // SERVER_URL = 'http://13.59.35.198:8000/api/';
+  SERVER_URL = 'http://127.0.0.1:8000/api/';
 
   constructor(
     // tslint:disable: variable-name

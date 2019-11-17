@@ -1,0 +1,70 @@
+$base-color: #1c1e2f;
+$card-color: #222437;
+
+.user-container {
+  height: calc(100vh - 64px);
+  width: 100%;
+  background-color: $base-color;
+
+  mat-sidenav {
+    width: 35%;
+    min-width: 480px;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 35%;
+    min-width: 480px;
+    background-color: $base-color;
+    color: #fff;
+
+    .toolbar-header {
+      background-color: $card-color;
+      color: #fff !important;
+    }
+  }
+
+  .main {
+    margin: 16px;
+
+    .table-container {
+      padding: 0 20px;
+
+      .table-dark {
+        border: 1px solid #2f3646;
+        color: rgba($color: #fff, $alpha: .78);
+      }
+
+      ::ng-deep .datatable-header {
+        background-color: #181b24;
+        color: #72809b;
+      }
+
+      ::ng-deep .datatable-body-row {
+        color: rgba($color: #fff, $alpha: .78);
+        border-top: 1px solid #2f3646;
+      }
+
+      ::ng-deep .datatable-header-cell {
+        padding: 8px 20px;
+      }
+
+      ::ng-deep .datatable-body-cell {
+        padding: 8px 20px;
+      }
+
+      ::ng-deep .datatable-footer {
+        padding: 8px 20px;
+        border-top: 1px solid #2f3646;
+      }
+
+      .reset-pwd {
+        line-height: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+
+
+}

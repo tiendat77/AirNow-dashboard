@@ -8,8 +8,6 @@ import { startWith, map } from 'rxjs/operators';
 import { DashboardService } from '../../store/dashboard.service';
 import { Router } from '@angular/router';
 
-import { AQI } from '../mock/mock';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,10 +24,6 @@ export class DashboardComponent implements OnInit {
     { id: 30, value: '30 days' },
     { id: 100, value: 'test 100' },
   ];
-
-  data = new Observable(subscriber => {
-    subscriber.next(AQI);
-  });
 
   constructor(
     public dashboardService: DashboardService,
