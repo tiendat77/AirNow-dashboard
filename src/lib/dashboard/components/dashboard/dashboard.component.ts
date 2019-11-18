@@ -22,13 +22,12 @@ export class DashboardComponent implements OnInit {
     { id: 1, value: '1 day' },
     { id: 7, value: '7 days' },
     { id: 30, value: '30 days' },
-    { id: 100, value: 'test 100' },
+    { id: 100, value: 'Last 100' },
   ];
 
   constructor(
     public dashboardService: DashboardService,
     private router: Router,
-    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -97,9 +96,6 @@ export class DashboardComponent implements OnInit {
 
       this.router.navigate(['/dashboard/home', routerParameter]);
     }
-
-    // const range = params.range ? params.range : null;
-    // this.router.navigate(['/dashboard/home']);
   }
 
 }

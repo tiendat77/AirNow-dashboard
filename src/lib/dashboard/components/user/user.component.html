@@ -1,22 +1,62 @@
 <mat-sidenav-container class="user-container">
   <mat-sidenav #userSidenav class="sidenav" position="end" (close)="closeSidenav()">
-    <mat-toolbar class="toolbar-header" fxLayoutAlign="space-between center">
-      <span>{{ isCreate==='Create'?'Create':'Edit' }} User</span>
-      <button mat-icon-button matTooltip="Close" class="clear" (click)="userSidenav.close()">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </mat-toolbar>
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex>
+      <mat-toolbar class="toolbar-header" fxLayoutAlign="space-between center">
+        <span>{{ isCreate === true ? 'Create' : 'Edit' }} User</span>
+        <button mat-icon-button matTooltip="Close" class="clear" (click)="userSidenav.close()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-toolbar>
 
-    <span>ahiahi</span>
+      <form class="form" [formGroup]="userForm" fxFlex>
+        <div class="form-content" fxLayout="column" fxLayoutAlign="start center" fxFlex>
+          <!-- Name -->
+          <div class="row">
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput formControlName="name" required>
+              <mat-placeholder class="placeholder">Name</mat-placeholder>
+              <mat-hint position="end" *ngIf="name.errors && (name.dirty || name.touched)">
+                <div class="hint" *ngIf="name.errors.required">
+                  Name is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- User Name -->
+          <div class="row" fxFlex>
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput required formControlName="username">
+              <mat-placeholder class="placeholder">Username</mat-placeholder>
+              <mat-hint position="end" *ngIf="username.errors && (username.dirty || username.touched)">
+                <div class="hint" *ngIf="username.errors.required">
+                  Username is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+      <mat-toolbar class="toolbar-footer" fxLayoutAlign="end center">
+        <button mat-button color="primary">OK</button>
+      </mat-toolbar>
+    </div>
   </mat-sidenav>
 
   <!-- Main -->
   <div fxLayout="column" class="main">
+
+    <button mat-mini-fab color="primary" class="fab" (click)="openSidenav()">
+      <mat-icon>add</mat-icon>
+    </button>
+
     <div class="table-container">
       <ngx-datatable
         id="table"
-        [rows]="rows"
+        [rows]="userService.users"
         [limit]="20"
+        [loadingIndicator]="userService.isLoading$ | async"
         [columnMode]="'flex'"
         [headerHeight]="40"
         [footerHeight]="40"
@@ -27,20 +67,20 @@
         [sorts]="[{ prop: 'id', dir: 'asc' }]"
         class="dark table-dark">
   
-        <!--ID-->
-        <ngx-datatable-column name="ID" prop="id" [flexGrow]="1">
-        </ngx-datatable-column>
-  
+      <!--ID-->
+      <ngx-datatable-column name="ID" prop="_id" [flexGrow]="3">
+      </ngx-datatable-column>
+
         <!--NAME-->
         <ngx-datatable-column name="Name" prop="name" [flexGrow]="2">
         </ngx-datatable-column>
   
-        <!--GENDER-->
-        <ngx-datatable-column name="Gender" prop="gender" [flexGrow]="2">
+        <!--USER NAME-->
+        <ngx-datatable-column name="User Name" prop="username" [flexGrow]="2">
         </ngx-datatable-column>
   
-        <!--COMPANY-->
-        <ngx-datatable-column name="Company" prop="company" [flexGrow]="2">
+        <!--PWD-->
+        <ngx-datatable-column name="Pwd" prop="password" [flexGrow]="2">
         </ngx-datatable-column>
   
         <!-- RESET PASSWORD -->

@@ -30,7 +30,7 @@ export class TempChartComponent implements OnInit {
       animationEnabled: true,
 
       title: {
-        text: 'Temperature Statistics',
+        text: 'Temperature Statistic',
         fontSize: 25,
       },
 

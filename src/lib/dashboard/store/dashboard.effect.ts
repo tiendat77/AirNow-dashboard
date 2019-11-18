@@ -64,8 +64,8 @@ export class DashboardEffect {
     ofType(DashboardActions.GET_AQI),
     switchMap((action: any) => {
       const params = new HttpParams()
-        .set('range', action.payload.range)
-        .set('locaion', action.payload.location);
+        .append('range', action.payload.range)
+        .append('location', action.payload.location);
       return of(params);
     }),
     switchMap((params: any) =>
@@ -87,7 +87,7 @@ export class DashboardEffect {
     switchMap((action: any) => {
       const params = new HttpParams()
         .set('range', action.payload.range)
-        .set('locaion', action.payload.location);
+        .set('location', action.payload.location);
       return of(params);
     }),
     switchMap((params: any) =>
@@ -109,7 +109,7 @@ export class DashboardEffect {
     switchMap((action: any) => {
       const params = new HttpParams()
         .set('range', action.payload.range)
-        .set('locaion', action.payload.location);
+        .set('location', action.payload.location);
       return of(params);
     }),
     switchMap((params: any) =>
