@@ -14,7 +14,14 @@ export class UserComponent implements OnInit {
 
   // Sidenav
   isCreate = true;
+  isChangePassword = false;
   userForm: FormGroup;
+
+  nameModel = '';
+  usrNameModel = '';
+  emailModel = '';
+  pwdModel = '';
+  pwdConfirmModel = '';
 
   // Table
   rows = [
@@ -33,6 +40,7 @@ export class UserComponent implements OnInit {
     this.userForm = this._formBuilder.group({
       name: new FormControl({ value: '', Validators: [Validators.required] }),
       username: new FormControl({ value: '', Validators: [Validators.required] }),
+      email: new FormControl({ value: '', Validators: [Validators.required, Validators.email] }),
       password: new FormControl({ value: '', Validators: [Validators.required] }),
       passwordConfirm: new FormControl({ value: '', Validators: [Validators.required] }),
     });
@@ -43,6 +51,10 @@ export class UserComponent implements OnInit {
 
   openSidenav() {
     this.isCreate = true;
+    this.isChangePassword = false;
+    this.userForm.get('username').enable();
+    this.userForm.reset();
+    this.resetModel();
 
     this.zone.run(() => {
       this.sidenav.open();
@@ -50,18 +62,33 @@ export class UserComponent implements OnInit {
   }
 
   closeSidenav() {
+    this.zone.run(() => {
+      this.sidenav.close();
+    });
+  }
 
+  resetModel() {
+    this.nameModel = '';
+    this.usrNameModel = '';
+    this.emailModel= '';
+    this.pwdModel = '';
+    this.pwdConfirmModel = '';
   }
 
   onSelect({ selected }: any) {
-    console.log('select ', selected);
     const selectedText = window.getSelection().toString();
     if (selectedText.length > 0) {
       return;
     } else if (selected.length === 1) {
       const current = selected[0];
+      console.log('select ', current);
+      this.nameModel = current.name;
+      this.emailModel = current.email;
+      this.usrNameModel = current.username;
 
       this.isCreate = false;
+      this.isChangePassword = false;
+      this.userForm.get('username').enable();
 
       this.zone.run(() => {
         this.sidenav.open();
@@ -70,17 +97,37 @@ export class UserComponent implements OnInit {
     }
   }
 
+  createUser() {
+
+    this.closeSidenav();
+  }
+
+  updateUser() {
+    if (this.isChangePassword) {
+      console.log('change passworde', this.usrNameModel);
+    } else {
+      console.log('update user', this.usrNameModel);
+    }
+
+    this.closeSidenav();
+  }
+
   resetPassword(event, row) {
     event.preventDefault();
     event.stopPropagation();
 
+    this.isChangePassword=true;
+    this.userForm.get('username').disable();
+
     this.zone.run(() => {
+      this.sidenav.open();
       console.log('reset pass', row);
     });
   }
 
   get name() { return this.userForm.get('name') }
   get username() { return this.userForm.get('username') }
+  get email() { return this.userForm.get('email') }
   get password() { return this.userForm.get('password') }
   get passwordConfirm() { return this.userForm.get('passwordConfirm') }
 

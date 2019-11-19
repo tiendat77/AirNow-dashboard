@@ -46,6 +46,10 @@ $card-color: #222437;
         .placeholder {
           color: #fff;
         }
+
+        .hint {
+          color: rgba($color: #cc2a2a, $alpha: .78)
+        }
       }  
     }
   }
