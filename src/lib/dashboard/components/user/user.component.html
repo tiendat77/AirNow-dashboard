@@ -102,11 +102,11 @@
     </button>
 
     <div class="table-container">
+      <mat-progress-bar mode="indeterminate" *ngIf="(userService.isLoading$ | async)"></mat-progress-bar>
       <ngx-datatable
         id="table"
         [rows]="userService.users"
         [limit]="20"
-        [loadingIndicator]="userService.isLoading$ | async"
         [columnMode]="'flex'"
         [headerHeight]="40"
         [footerHeight]="40"

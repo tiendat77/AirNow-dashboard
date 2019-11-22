@@ -5,14 +5,15 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+import  { environment } from '../../../../environments/environment';
+
 import * as UserActions from './user.actions';
 import { UserService } from './user.service';
 
 @Injectable()
 export class UserEffect {
 
-  // SERVER_URL = 'http://13.59.35.198:8000/admin/';
-  SERVER_URL = 'http://127.0.0.1:8000/admin/';
+  SERVER_URL = environment.AdminAPI;
 
   constructor(
     private _action$: Actions,
@@ -35,6 +36,7 @@ export class UserEffect {
         }),
         catchError(error => {
           console.error(error);
+          this.userService.isLoading$.next(false);
           this.pushNotification('Error occoured. Please try again!');
           return of();
         })
@@ -56,11 +58,13 @@ export class UserEffect {
       this.http.post(this.SERVER_URL + '/createUser', body).pipe(
         map((data: any) => {
           this.pushNotification('User '+ body.username + ' created!');
+          this.userService.isLoading$.next(false);
           return new UserActions.GetData();
         }),
         catchError((error) => {
           console.error(error);
           this.pushNotification('Error occoured. Please try again!');
+          this.userService.isLoading$.next(false);
           return of()
         })
       )
@@ -80,11 +84,13 @@ export class UserEffect {
       this.http.post(this.SERVER_URL + '/updateUser', body).pipe(
         map((data: any) => {
           this.pushNotification('User '+ body.username + ' updated!');
+          this.userService.isLoading$.next(false);
           return new UserActions.GetData();
         }),
         catchError((error) => {
           console.error(error);
           this.pushNotification('Error occoured. Please try again!');
+          this.userService.isLoading$.next(false);
           return of()
         })
       )
@@ -107,11 +113,13 @@ export class UserEffect {
       this.http.post(this.SERVER_URL + '/changePassword', body).pipe(
         map((data: any) => {
           this.pushNotification('Password of user '+ body.username + ' changed!');
+          this.userService.isLoading$.next(false);
           return new UserActions.GetData();
         }),
         catchError((error) => {
           console.error(error);
           this.pushNotification('Error occoured. Please try again!');
+          this.userService.isLoading$.next(false);
           return of()
         })
       )
@@ -131,11 +139,13 @@ export class UserEffect {
       this.http.post(this.SERVER_URL + '/removeUser', body).pipe(
         map((data: any) => {
           this.pushNotification('User '+ body.username + ' removed!');
+          this.userService.isLoading$.next(false);
           return new UserActions.GetData();
         }),
         catchError((error) => {
           console.error(error);
           this.pushNotification('Error occoured. Please try again!');
+          this.userService.isLoading$.next(false);
           return of()
         })
       )

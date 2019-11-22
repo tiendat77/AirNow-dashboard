@@ -2,25 +2,23 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
+import  { environment } from '../../../environments/environment';
+
 import * as DashboardActions from './dashboard.action';
-import { DashboardState } from './dashboard.state';
 
 @Injectable()
 export class DashboardEffect {
 
-  // SERVER_URL = 'http://13.59.35.198:8000/api/';
-  SERVER_URL = 'http://127.0.0.1:8000/api/';
+  SERVER_URL = environment.DashboarAPI;
 
   constructor(
     // tslint:disable: variable-name
     private _actions$: Actions,
-    private _snackbar: MatSnackBar,
-    private _store: Store<DashboardState>,
+    private snackbar: MatSnackBar,
     private http: HttpClient
   ) { }
 
@@ -60,69 +58,32 @@ export class DashboardEffect {
   );
 
   @Effect()
-  GetAQI = this._actions$.pipe(
-    ofType(DashboardActions.GET_AQI),
-    switchMap((action: any) => {
+  GetAir = this._actions$.pipe(
+    ofType(DashboardActions.GET_AIR),
+    map((action: any) => action.payload),
+    switchMap((payload: any) => {
       const params = new HttpParams()
-        .append('range', action.payload.range)
-        .append('location', action.payload.location);
-      return of(params);
+      .append('range', payload.range)
+      .append('location', payload.location);
+    return of(params);
     }),
-    switchMap((params: any) =>
-      this.http.get(this.SERVER_URL + 'select-aqi', { params }).pipe(
+    switchMap((params) =>
+      this.http.get(this.SERVER_URL + 'airdata', { params }).pipe(
         map((data: any) => {
-          return new DashboardActions.FetchAQI(data.aqi);
+          if (data.aqi.length === 0 ) {
+            this.pushNotification('No data in this range!');
+            return new DashboardActions.FetchAir(data);
+          } else {
+            return new DashboardActions.FetchAir(data);
+          }
         }),
         catchError((error) => {
           console.error(error);
+          this.pushNotification('Error has occurred. Please try again!');
           return of();
         })
       )
-    ),
-  );
-
-  @Effect()
-  GetTemperature = this._actions$.pipe(
-    ofType(DashboardActions.GET_TEMPERATURE),
-    switchMap((action: any) => {
-      const params = new HttpParams()
-        .set('range', action.payload.range)
-        .set('location', action.payload.location);
-      return of(params);
-    }),
-    switchMap((params: any) =>
-      this.http.get(this.SERVER_URL + 'select-temperature', { params }).pipe(
-        map((data: any) => {
-          return new DashboardActions.FetchTemperature(data.temperature);
-        }),
-        catchError((error) => {
-          console.error(error);
-          return of();
-        })
-      )
-    ),
-  );
-
-  @Effect()
-  GetHumidity = this._actions$.pipe(
-    ofType(DashboardActions.GET_HUMIDITY),
-    switchMap((action: any) => {
-      const params = new HttpParams()
-        .set('range', action.payload.range)
-        .set('location', action.payload.location);
-      return of(params);
-    }),
-    switchMap((params: any) =>
-      this.http.get(this.SERVER_URL + 'select-humidity', { params }).pipe(
-        map((data: any) => {
-          return new DashboardActions.FetchHumidity(data.humidity);
-        }),
-        catchError((error) => {
-          console.error(error);
-          return of();
-        })
-      )
-    ),
+    )
   );
 
   @Effect()
@@ -139,6 +100,12 @@ export class DashboardEffect {
         })
     ))
   );
+
+  pushNotification(message: string) {
+    setTimeout(() => {
+      this.snackbar.open(message, 'OK', { duration: 3000 });
+    });
+  }
 
 }
 

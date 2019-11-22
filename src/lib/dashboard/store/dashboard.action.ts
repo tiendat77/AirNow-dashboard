@@ -4,6 +4,8 @@ export const GET_STATISTICS = '[Dashboard] Get Statistics';
 export const FETCH_STATISTICS = '[Dashboard] Fetch Statistics';
 export const GET_FORECAST = '[Dashboard] Get Forecast';
 export const FETCH_FORECAST = '[Dashboard] Fetch Forecast';
+export const GET_AIR = '[Dashboard] Get Air';
+export const FETCH_AIR = '[Dashboard] Fetch Air';
 export const GET_AQI = '[Dashboard] Get AQI';
 export const FETCH_AQI = '[Dashboard] Fetch AQI';
 export const GET_TEMPERATURE = '[Dashboard] Get Temperature';
@@ -31,35 +33,16 @@ export class FetchForecast implements Action {
   constructor(public payload: any) { }
 }
 
-export class GetAQI implements Action {
-  readonly type = GET_AQI;
+export class GetAir implements Action {
+  readonly type = GET_AIR;
   constructor(public payload: any) { }
 }
 
-export class FetchAQI implements Action {
-  readonly type = FETCH_AQI;
+export class FetchAir implements Action {
+  readonly type = FETCH_AIR;
   constructor(public payload: any) { }
 }
 
-export class GetTemperature implements Action {
-  readonly type = GET_TEMPERATURE;
-  constructor(public payload: any) { }
-}
-
-export class FetchTemperature implements Action {
-  readonly type = FETCH_TEMPERATURE;
-  constructor(public payload: any) { }
-}
-
-export class GetHumidity implements Action {
-  readonly type = GET_HUMIDITY;
-  constructor(public payload: any) { }
-}
-
-export class FetchHumidity implements Action {
-  readonly type = FETCH_HUMIDITY;
-  constructor(public payload: any) { }
-}
 
 export class GetLocation implements Action {
   readonly type = GET_LOCATION;
@@ -72,7 +55,5 @@ export class FetchLocation implements Action {
 
 export type All = GetStatistics | FetchStatistic |
                   GetForecast | FetchForecast |
-                  GetAQI | FetchAQI |
-                  GetTemperature | FetchTemperature |
-                  GetHumidity | FetchHumidity |
+                  GetAir | FetchAir |
                   GetLocation | FetchLocation;

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import * as DashboardActions from './dashboard.action';
-import { DashboardState } from './dashboard.state';
 
 import { getStatistics, getForecast, getLocations, getAqi, getTemperature, getHumidity } from './dashboard.selector';
 import { IAppState } from '../type/app-state';
@@ -21,12 +20,12 @@ export class DashboardService {
   temperature$: Observable<any>;
   humidity$: Observable<any>;
 
-  statistics: any[] = [];
-  forecast: any[] = [];
   aqi: any[] = [];
   temperature: any[] = [];
   humidity: any[] = [];
   locations: any[] = [];
+
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   // tslint:disable-next-line: variable-name
   constructor( private _store: Store<IAppState> ) {
@@ -37,32 +36,22 @@ export class DashboardService {
     this.temperature$ = this._store.pipe(getTemperature());
     this.humidity$ = this._store.pipe(getHumidity());
 
-    this.statistics$.subscribe(data => this.statistics = data);
-    this.locations$.subscribe(data => this.locations = data);
-    this.forecast$.subscribe(data => this.forecast = data);
   }
 
   getData() {
+    this.isLoading.next(true);
     this._store.dispatch(new DashboardActions.GetStatistics());
     this._store.dispatch(new DashboardActions.GetLocation());
   }
 
-  getStatistics() {
-    this._store.dispatch(new DashboardActions.GetStatistics());
-  }
-
   getForecast() {
+    this.isLoading.next(true);
     this._store.dispatch(new DashboardActions.GetForecast());
   }
 
   getAir(params) {
-    this._store.dispatch(new DashboardActions.GetAQI(params));
-    this._store.dispatch(new DashboardActions.GetTemperature(params));
-    this._store.dispatch(new DashboardActions.GetHumidity(params));
-  }
-
-  getLocations() {
-    this._store.dispatch(new DashboardActions.GetLocation());
+    this.isLoading.next(true);
+    this._store.dispatch(new DashboardActions.GetAir(params));
   }
 
   toggleMenu() {
