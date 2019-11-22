@@ -10,39 +10,10 @@
 
       <form class="form" [formGroup]="userForm" fxFlex>
         <div class="form-content" fxLayout="column" fxLayoutAlign="start center" fxFlex>
-          <!-- Email -->
-          <div class="row" *ngIf="!isChangePassword">
-            <mat-form-field fxFlex>
-              <input type="text" class="input" matInput formControlName="email" required [(ngModel)]="emailModel">
-              <mat-placeholder class="placeholder">Email</mat-placeholder>
-              <mat-hint *ngIf="email.errors && (email.dirty || email.touched)">
-                <div class="hint" *ngIf="email.errors.required">
-                  Email is required.
-                </div>
-                <div class="hint" *ngIf="!email.errors.required && email.errors.email">
-                  Email is not valid.
-                </div>
-              </mat-hint>
-            </mat-form-field>
-          </div>
-
-          <!-- Name -->
-          <div class="row" *ngIf="!isChangePassword">
-            <mat-form-field fxFlex>
-              <input type="text" class="input" matInput formControlName="name" required [(ngModel)]="nameModel">
-              <mat-placeholder class="placeholder">Name</mat-placeholder>
-              <mat-hint *ngIf="name.errors && (name.dirty || name.touched)">
-                <div class="hint" *ngIf="name.errors.required">
-                  Name is required.
-                </div>
-              </mat-hint>
-            </mat-form-field>
-          </div>
-
           <!-- User Name -->
           <div class="row">
             <mat-form-field fxFlex>
-              <input type="text" class="input" matInput required formControlName="username" [(ngModel)]="usrNameModel">
+              <input type="text" class="input" matInput required formControlName="username">
               <mat-placeholder class="placeholder">Username</mat-placeholder>
               <mat-hint *ngIf="username.errors && (username.dirty || username.touched)">
                 <div class="hint" *ngIf="username.errors.required">
@@ -52,10 +23,39 @@
             </mat-form-field>
           </div>
 
+          <!-- Email -->
+          <div class="row" *ngIf="!isChangePassword">
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput formControlName="email" required email>
+              <mat-placeholder class="placeholder">Email</mat-placeholder>
+              <mat-hint *ngIf="email.errors && (email.dirty || email.touched)">
+                <div class="hint" *ngIf="email.errors.required">
+                  Email is required.
+                </div>
+                <div class="hint" *ngIf="email.errors.email">
+                  Email is not valid.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- Name -->
+          <div class="row" *ngIf="!isChangePassword">
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput formControlName="name" required>
+              <mat-placeholder class="placeholder">Name</mat-placeholder>
+              <mat-hint *ngIf="name.errors && (name.dirty || name.touched)">
+                <div class="hint" *ngIf="name.errors.required">
+                  Name is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
           <!-- Password -->
           <div class="row" *ngIf="isChangePassword">
             <mat-form-field fxFlex>
-              <input type="text" class="input" type="password" matInput required formControlName="password" [(ngModel)]="pwdModel">
+              <input type="text" class="input" type="password" autocomplete="new-password" matInput required formControlName="password">
               <mat-placeholder class="placeholder">New password</mat-placeholder>
               <mat-hint *ngIf="password.errors && (password.dirty || password.touched)">
                 <div class="hint" *ngIf="password.errors.required">
@@ -68,7 +68,7 @@
           <!-- Confirm Password -->
           <div class="row" *ngIf="isChangePassword">
             <mat-form-field fxFlex>
-              <input type="text" class="input" type="password" matInput required formControlName="passwordConfirm" [(ngModel)]="pwdConfirmModel">
+              <input type="text" class="input" type="password" autocomplete="new-password" matInput required formControlName="passwordConfirm">
               <mat-placeholder class="placeholder">Confirm password</mat-placeholder>
               <mat-hint *ngIf="passwordConfirm.errors && (passwordConfirm.dirty || passwordConfirm.touched)">
                 <div class="hint" *ngIf="passwordConfirm.errors.required">
@@ -80,10 +80,16 @@
         </div>
       </form>
 
-      <mat-toolbar class="toolbar-footer" fxLayoutAlign="end center" fxLayoutGap="15px">
-        <button mat-button color="primary" (click)="closeSidenav()">Cancel</button>
-        <button mat-button color="primary" (click)="createUser()" *ngIf="isCreate">Create</button>
-        <button mat-button color="primary" (click)="updateUser()" *ngIf="!isCreate">Update</button>
+      <mat-toolbar class="toolbar-footer" fxLayoutAlign="space-between center">
+        <div fxLayoutAlign="start center">
+          <button mat-raised-button color="warn" (click)="isConfirm = true" *ngIf="!isCreate && !isConfirm">Remove</button>
+          <button mat-raised-button color="warn" (click)="onRemoveUser()" *ngIf="!isCreate && isConfirm">Confirm</button>
+        </div>
+        <div fxLayoutAlign="end center" fxLayoutGap="15px">
+          <button mat-raised-button color="primary" (click)="closeSidenav()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="onCreateUser()" *ngIf="isCreate">Create</button>
+          <button mat-raised-button color="primary" (click)="onUpdateUser()" *ngIf="!isCreate">Update</button>
+        </div>
       </mat-toolbar>
     </div>
   </mat-sidenav>
@@ -105,23 +111,19 @@
         [headerHeight]="40"
         [footerHeight]="40"
         [rowHeight]="40"
-        [reorderable]="reorderable"
         [selectionType]="'single'"
         (select)="onSelect($event)"
         [sorts]="[{ prop: 'id', dir: 'asc' }]"
         class="dark table-dark">
-  
-      <!-- ID
-      <ngx-datatable-column name="ID" prop="_id" [flexGrow]="3">
-      </ngx-datatable-column> -->
+        
+        <!--EMAIL-->
+        <ngx-datatable-column name="Email" prop="email" [flexGrow]="2">
+        </ngx-datatable-column>
 
         <!--NAME-->
         <ngx-datatable-column name="Name" prop="name" [flexGrow]="2">
         </ngx-datatable-column>
 
-        <!--EMAIL-->
-        <ngx-datatable-column name="Email" prop="email" [flexGrow]="2">
-          </ngx-datatable-column>
   
         <!--USER NAME-->
         <ngx-datatable-column name="User Name" prop="username" [flexGrow]="2">
@@ -136,7 +138,7 @@
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <div fxLayoutAlign="center center">
               <button mat-icon-button color="primary" class="reset-pwd" matTooltip="Reset Password" matTooltipPosition="before" 
-                (click)="resetPassword($event, row);">
+                (click)="onResetPassword($event, row);">
                 <mat-icon>lock</mat-icon>
               </button> 
             </div>

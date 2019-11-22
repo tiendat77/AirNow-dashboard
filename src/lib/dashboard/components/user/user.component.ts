@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UserService } from './user.service';
@@ -15,13 +15,8 @@ export class UserComponent implements OnInit {
   // Sidenav
   isCreate = true;
   isChangePassword = false;
+  isConfirm = false;
   userForm: FormGroup;
-
-  nameModel = '';
-  usrNameModel = '';
-  emailModel = '';
-  pwdModel = '';
-  pwdConfirmModel = '';
 
   // Table
   rows = [
@@ -34,6 +29,7 @@ export class UserComponent implements OnInit {
     private zone: NgZone,
     public userService: UserService,
     private _formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -54,7 +50,6 @@ export class UserComponent implements OnInit {
     this.isChangePassword = false;
     this.userForm.get('username').enable();
     this.userForm.reset();
-    this.resetModel();
 
     this.zone.run(() => {
       this.sidenav.open();
@@ -67,28 +62,19 @@ export class UserComponent implements OnInit {
     });
   }
 
-  resetModel() {
-    this.nameModel = '';
-    this.usrNameModel = '';
-    this.emailModel= '';
-    this.pwdModel = '';
-    this.pwdConfirmModel = '';
-  }
-
   onSelect({ selected }: any) {
     const selectedText = window.getSelection().toString();
     if (selectedText.length > 0) {
       return;
     } else if (selected.length === 1) {
       const current = selected[0];
-      console.log('select ', current);
-      this.nameModel = current.name;
-      this.emailModel = current.email;
-      this.usrNameModel = current.username;
+      this.userForm.controls['username'].setValue(current.username);
+      this.userForm.controls['email'].setValue(current.email);
+      this.userForm.controls['name'].setValue(current.name);
 
       this.isCreate = false;
       this.isChangePassword = false;
-      this.userForm.get('username').enable();
+      this.userForm.get('username').disable();
 
       this.zone.run(() => {
         this.sidenav.open();
@@ -97,32 +83,102 @@ export class UserComponent implements OnInit {
     }
   }
 
-  createUser() {
+  // Create button on sidenav is clicked
+  onCreateUser() {
+    if (this.isNull(this.username.value) || this.isNull(this.email.value) || this.isNull(this.name.value)) {
+      this.snackBar.open('Please fulfill the form!', 'OK', { duration: 3000 });
+      return;
+    }
 
+    if (this.userForm.controls['email'].errors) {
+      this.snackBar.open('Invalid email!', 'OK', { duration: 3000 });
+      return;
+    }
+
+    const user = {
+      username: this.username.value,
+      email: this.email.value,
+      name: this.name.value,
+    };
+
+    this.userService.createUser(user);
     this.closeSidenav();
   }
 
-  updateUser() {
+  // Reset button on the table is clicked
+  onResetPassword(event, current) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.isChangePassword=true;
+    this.isCreate = false;
+    this.userForm.reset();
+    this.userForm.controls['username'].setValue(current.username);
+    this.userForm.get('username').disable();
+    this.userForm.controls['password'].setValue('');
+    this.userForm.controls['passwordConfirm'].setValue('');
+
+    this.zone.run(() => {
+      this.sidenav.open();
+    });
+  }
+
+  // Update button on sidenav is clicked
+  onUpdateUser() {
     if (this.isChangePassword) {
-      console.log('change passworde', this.usrNameModel);
+      if (this.isNull(this.password.value) || this.isNull(this.passwordConfirm.value)) {
+        this.snackBar.open('Please fulfill the form!', 'OK', { duration: 3000 });
+        return;
+      }
+
+      if (this.password.value.length < 6 || this.passwordConfirm.value.length < 6) {
+        this.snackBar.open('New password is too short!', 'OK', { duration: 3000 });
+        return;
+      }
+
+      if (this.password.value !== this.passwordConfirm.value) {
+        this.snackBar.open('Password and confirm password does not match!', 'OK', { duration: 3000 });
+        return;
+      }
+
+      const user = {
+        username: this.username.value,
+        password: this.password.value
+      };
+
+      this.userService.changePassword(user);
     } else {
-      console.log('update user', this.usrNameModel);
+      if (this.isNull(this.username.value) || this.isNull(this.email.value) || this.isNull(this.name.value)) {
+        this.snackBar.open('Please fulfill the form!', 'OK', { duration: 3000 });
+        return;
+      }
+
+      const user = {
+        username: this.username.value,
+        email: this.email.value,
+        name: this.name.value
+      };
+
+      this.userService.updateUser(user);
     }
 
     this.closeSidenav();
   }
 
-  resetPassword(event, row) {
-    event.preventDefault();
-    event.stopPropagation();
+  // Confirm remove button on sidenav is clicked
+  onRemoveUser() {
+    console.log('remove user', this.username.value);
+    const user = {
+      username: this.username.value
+    };
+    this.userService.removeUser(user);
 
-    this.isChangePassword=true;
-    this.userForm.get('username').disable();
+    this.isConfirm = false;
+    this.closeSidenav();
+  }
 
-    this.zone.run(() => {
-      this.sidenav.open();
-      console.log('reset pass', row);
-    });
+  isNull(data) {
+    return data === undefined || data === null || data.length === 0;
   }
 
   get name() { return this.userForm.get('name') }
