@@ -30,7 +30,7 @@ export class AqiChartComponent implements OnInit {
       animationEnabled: true,
 
       title: {
-        text: 'Air Quality Index Statistics',
+        text: 'Air Quality Index Statistic',
         fontSize: 25,
       },
 

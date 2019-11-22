@@ -30,7 +30,7 @@ export class HumiChartComponent implements OnInit {
       animationEnabled: true,
 
       title: {
-        text: 'Humidity Statistics',
+        text: 'Humidity Statistic',
         fontSize: 25,
       },
 

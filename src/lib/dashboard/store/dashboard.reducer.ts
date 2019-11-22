@@ -24,7 +24,6 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
     }
 
     case DashboardActions.FETCH_FORECAST: {
-      // console.log('forecast', action.payload);
       const data = action.payload;
       const forecast = [];
 
@@ -39,43 +38,41 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
       return state.set('forecast', forecast);
     }
 
-    case DashboardActions.FETCH_AQI: {
-      const data = action.payload;
+    case DashboardActions.FETCH_AIR: {
+
       const aqiList = [];
-      for (const aqi of data) {
-        const item = {};
-        item['y'] = aqi.aqi;
-        item['x'] = new Date(aqi.time);
-        aqiList.push(item);
+      const temperatureList = [];
+      const humidityList = [];
+
+      console.log('redux ', action.payload.aqi);
+
+      for (let i = 0; i < action.payload.aqi.length; i++) {
+        // Fetch aqi
+        const aqi = action.payload.aqi[i];
+        aqiList.push({
+          y: aqi.aqi,
+          x: new Date(aqi.time)
+        });
+
+        // Fetch temperature
+        const temperature = action.payload.temperature[i];
+        temperatureList.push({
+          y: temperature.degrees,
+          x: new Date(temperature.time)
+        });
+
+        // Fetch humidity
+        const humidity = action.payload.humidity[i];
+        humidityList.push({
+          y: humidity.humidity,
+          x: new Date(humidity.time)
+        })
       }
 
-      return state.set('aqi', aqiList);
-    }
-
-    case DashboardActions.FETCH_TEMPERATURE: {
-      const data = action.payload;
-      const temperature = [];
-      for (const temp of data) {
-        const item = {};
-        item['x'] = new Date(temp.time);
-        item['y'] = temp.degrees;
-        temperature.push(item);
-      }
-
-      return state.set('temperature', temperature);
-    }
-
-    case DashboardActions.FETCH_HUMIDITY: {
-      const data = action.payload;
-      const humidity = [];
-      for (const humi of data) {
-        const item = {};
-        item['x'] = new Date(humi.time);
-        item['y'] = humi.humidity;
-        humidity.push(item);
-      }
-
-      return state.set('humidity', humidity);
+      return state
+        .set('aqi', aqiList)
+        .set('temperature', temperatureList)
+        .set('humidity', humidityList);
     }
 
     case DashboardActions.FETCH_LOCATION: {

@@ -5,12 +5,14 @@ import { MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  SERVER_URL = 'http://13.59.35.198:8000/';
+  SERVER_URL = environment.LoginAPI;
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -22,10 +22,46 @@ $card-color: #222437;
       background-color: $card-color;
       color: #fff !important;
     }
+
+    .toolbar-footer {
+      background-color: $card-color;
+      color: #fff !important;
+    }
+
+    .form {
+      color: #fff;
+
+      .form-content {
+        padding: 16px 16px;
+
+        .row {
+          width: 100%;;
+          margin: 5px;
+        }
+
+        .input {
+          color: #fff;
+        }
+
+        .placeholder {
+          color: #fff;
+        }
+
+        .hint {
+          color: rgba($color: #cc2a2a, $alpha: .78)
+        }
+      }  
+    }
   }
 
   .main {
     margin: 16px;
+
+    .fab {
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+    }
 
     .table-container {
       padding: 0 20px;

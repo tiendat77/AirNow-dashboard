@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -15,72 +14,54 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  locationCtrl = new FormControl();
-  currentLocation = '';
+  chartForm: FormGroup;
+
   filteredLocations: Observable<any>;
   ranges = [
     { id: 1, value: '1 day' },
     { id: 7, value: '7 days' },
     { id: 30, value: '30 days' },
-    { id: 100, value: 'test 100' },
+    { id: 100, value: 'Last 100' },
   ];
 
   constructor(
     public dashboardService: DashboardService,
+    private formBuilder: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.chartForm = this.formBuilder.group({
+      locationCtrl: new FormControl(''),
+      rangeCtrl: new FormControl('')
+    });
+
     this.dashboardService.getData();
 
-    this.filteredLocations = this.locationCtrl.valueChanges.pipe(
-      startWith(''),
-      map(name => name ? this.filterLocation(name) : this.dashboardService.locations)
-    );
-  }
+    this.dashboardService.locations$.subscribe(data => {
+      console.log('subscribe location');
+      this.dashboardService.locations = data;
+      this.filteredLocations = this.chartForm.get('locationCtrl').valueChanges.pipe(
+        startWith(''),
+        map(name => name ? this.filterLocation(name) : this.dashboardService.locations)
+      );
+    });
 
-  generate() { // this function just for test - delete it
-    const limit = 1000;
-    let y = 0;
-    const dataPoints = [];
-    for (let i = 0; i < limit; i += 1) {
-      y += (Math.random() * 10 - 5);
-      dataPoints.push({
-        x: i - limit / 2,
-        y: y
-      });
-    }
-
-    return dataPoints;
   }
 
   filterLocation(value: string) {
     const search = value.toLowerCase();
     return this.dashboardService.locations.filter(d => d.toLowerCase().indexOf(search) === 0);
-
   }
 
-  onSelectLocation(location) {
-    if (location) {
-      this.currentLocation = location;
+  getAir() {
+    if (!this.isNull(this.rangeCtrl.value) && !this.isNull(this.locationCtrl.value)) {
+      const params = {};
+      params['location'] = this.locationCtrl.value;
+      params['range'] =  this.rangeCtrl.value;
+      this.updateUrlParams(params);
+      this.dashboardService.getAir(params);
     }
-  }
-
-  onSelectRange(id: number) {
-    const params = {};
-
-    if (this.currentLocation !== '') {
-      params['location'] = this.currentLocation;
-    }
-
-    if (id) {
-      params['range'] = id.toString();
-    }
-
-    this.updateUrlParams(params);
-    console.log('param ', params);
-    this.dashboardService.getAir(params);
   }
 
   updateUrlParams(params) {
@@ -97,9 +78,13 @@ export class DashboardComponent implements OnInit {
 
       this.router.navigate(['/dashboard/home', routerParameter]);
     }
-
-    // const range = params.range ? params.range : null;
-    // this.router.navigate(['/dashboard/home']);
   }
+
+  isNull(data: any) {
+    return data === undefined || data === null || data.length === 0;
+  }
+
+  get locationCtrl() { return this.chartForm.get('locationCtrl') }
+  get rangeCtrl() { return this.chartForm.get('rangeCtrl') }
 
 }

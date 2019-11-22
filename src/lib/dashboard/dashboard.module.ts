@@ -35,6 +35,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardService } from './store/dashboard.service';
 import { dashboardReducer } from './store/dashboard.reducer';
 import { DashboardEffect } from './store/dashboard.effect';
+import { UserService } from './components/user/user.service';
+import { userReducer } from './components/user/user.reducer';
+import { UserEffect } from './components/user/user.effect';
 
 // Components
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -88,11 +91,18 @@ import { UserComponent } from './components/user/user.component';
 
     NgxChartsModule,
     NgxDatatableModule,
-    StoreModule.forRoot({ dashboard: dashboardReducer }),
-    EffectsModule.forRoot([DashboardEffect])
+    StoreModule.forRoot({ 
+      dashboard: dashboardReducer,
+      user: userReducer
+    }),
+    EffectsModule.forRoot([
+      DashboardEffect,
+      UserEffect
+    ])
   ],
   providers: [
-    DashboardService
+    DashboardService,
+    UserService
   ],
 })
 export class DashboardModule { }
