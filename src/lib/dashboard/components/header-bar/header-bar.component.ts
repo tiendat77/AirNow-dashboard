@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/lib/login/login/login.service';
-import { DashboardService } from '../../store/dashboard.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'app-header-bar',

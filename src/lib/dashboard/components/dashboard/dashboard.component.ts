@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
-import { DashboardService } from '../../store/dashboard.service';
+import { DashboardService } from './dashboard.service';
 import { Router } from '@angular/router';
 
 @Component({

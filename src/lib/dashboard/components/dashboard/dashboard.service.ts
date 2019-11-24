@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import * as DashboardActions from './dashboard.action';
 
 import { getStatistics, getForecast, getLocations, getAqi, getTemperature, getHumidity } from './dashboard.selector';
-import { IAppState } from '../type/app-state';
+import { IAppState } from '../../type/app-state';
 
 @Injectable({
   providedIn: 'root'

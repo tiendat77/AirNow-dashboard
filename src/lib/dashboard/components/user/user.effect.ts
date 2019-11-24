@@ -16,14 +16,14 @@ export class UserEffect {
   SERVER_URL = environment.AdminAPI;
 
   constructor(
-    private _action$: Actions,
+    private action$: Actions,
     private http: HttpClient,
     private userService: UserService,
     private snackBar: MatSnackBar,
   ) { }
 
   @Effect()
-  getData = this._action$.pipe(
+  getData = this.action$.pipe(
     ofType(UserActions.GET_DATA),
     switchMap(() =>
       this.http.post(this.SERVER_URL + 'userList', { 'code': '93cf8cb6e31a3c5fddc70e8a0bb86075' }).pipe(
@@ -45,13 +45,12 @@ export class UserEffect {
   );
 
   @Effect()
-  createUser = this._action$.pipe(
+  createUser = this.action$.pipe(
     ofType(UserActions.USER_CREATE),
     map((action: any) => action.payload),
     switchMap((payload: any) => {
       const user = payload;
       user.code = '93cf8cb6e31a3c5fddc70e8a0bb86075';
-      console.log('code: ', user);
       return of(user);
     }),
     switchMap((body: any) =>
@@ -72,7 +71,7 @@ export class UserEffect {
   );
 
   @Effect()
-  updateUser = this._action$.pipe(
+  updateUser = this.action$.pipe(
     ofType(UserActions.USER_UPDATE),
     map((action: any) => action.payload),
     switchMap((payload: any) => {
@@ -98,7 +97,7 @@ export class UserEffect {
   );
 
   @Effect()
-  changePassword = this._action$.pipe(
+  changePassword = this.action$.pipe(
     ofType(UserActions.USER_CHANGE_PASSWORD),
     map((action: any) => action.payload),
     switchMap((payload: any) => {
@@ -127,7 +126,7 @@ export class UserEffect {
   );
 
   @Effect()
-  removeUser = this._action$.pipe(
+  removeUser = this.action$.pipe(
     ofType(UserActions.USER_REMOVE),
     map((action: any) => action.payload),
     switchMap((payload: any) => {

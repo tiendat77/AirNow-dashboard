@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DashboardService } from 'src/lib/dashboard/store/dashboard.service';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   // tslint:disable-next-line: component-selector

@@ -18,22 +18,15 @@ export class UserComponent implements OnInit {
   isConfirm = false;
   userForm: FormGroup;
 
-  // Table
-  rows = [
-    { id: '1', name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { id: '2', name: 'Dany', gender: 'Male', company: 'KFC' },
-    { id: '3',name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
-
   constructor(
     private zone: NgZone,
     public userService: UserService,
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
-    this.userForm = this._formBuilder.group({
+    this.userForm = this.formBuilder.group({
       name: new FormControl({ value: '', Validators: [Validators.required] }),
       username: new FormControl({ value: '', Validators: [Validators.required] }),
       email: new FormControl({ value: '', Validators: [Validators.required, Validators.email] }),
@@ -167,7 +160,6 @@ export class UserComponent implements OnInit {
 
   // Confirm remove button on sidenav is clicked
   onRemoveUser() {
-    console.log('remove user', this.username.value);
     const user = {
       username: this.username.value
     };

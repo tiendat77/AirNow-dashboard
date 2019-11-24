@@ -1,5 +1,5 @@
-import { Selector } from '../type/selector';
-import { IAppState } from '../type/app-state';
+import { Selector } from '../../type/selector';
+import { IAppState } from '../../type/app-state';
 import { DashboardState } from './dashboard.state';
 
 import { map, distinctUntilChanged } from 'rxjs/operators';

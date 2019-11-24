@@ -6,7 +6,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
-import  { environment } from '../../../environments/environment';
+import  { environment } from '../../../../environments/environment';
 
 import * as DashboardActions from './dashboard.action';
 

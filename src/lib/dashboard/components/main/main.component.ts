@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DashboardService } from '../../store/dashboard.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +12,8 @@ export class MainComponent implements OnInit {
 
   navitem = [
     { title: 'Dashboard', link: '/dashboard/home' },
-    { title: 'Users', link: '/dashboard/user' }
+    { title: 'User', link: '/dashboard/user' },
+    { title: 'Device', link: '/dashboard/device' },
   ];
 
   constructor(

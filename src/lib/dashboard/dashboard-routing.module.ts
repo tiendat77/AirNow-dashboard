@@ -5,6 +5,7 @@ import {
   DashboardComponent,
 } from './components';
 import { UserComponent } from './components/user/user.component';
+import { DeviceComponent } from './components/device/device.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,9 @@ const routes: Routes = [
           { path: 'home/:location', component: DashboardComponent },
           { path: 'home/:range/:location', component: DashboardComponent },
           { path: 'user', component: UserComponent },
-          { path: 'user/:id', component: UserComponent }
+          { path: 'user/:id', component: UserComponent },
+          { path: 'device', component: DeviceComponent },
+          { path: 'device/:id', component: DeviceComponent },
         ]
       }
     ]
