@@ -32,7 +32,7 @@
 
   <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
     <mat-form-field>
-      <input class="input" type="text" matInput name="location" [(ngModel)]="locationCtrl" [matAutocomplete]="auto">
+      <input class="input" type="text" matInput [formControl]="locationCtrl" [matAutocomplete]="auto">
       <mat-placeholder class="placeholder">Location</mat-placeholder>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let location of filteredLocations | async" [value]="location" (click)="getAir()">
