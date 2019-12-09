@@ -22,28 +22,47 @@
           'red-aqi-bg': item.status==='Unhealthy',
           'orange-aqi-bg': item.status==='Unhealthy for Sensitive Groups',
           'yellow-aqi-bg': item.status==='Moderate',
-          'green-aqi-bg': item.status==='Good'
+          'green-aqi-bg': item.status==='Good',
+          'opera-mauve-aqi-bg': item.status==='Very Unhealthy'
         }"
+        [ngSwitch]="getLevel(item.status)"
         fxFlex fxLayoutAlign="space-between stretch">
-        <div *ngIf="item.status==='Good'" class="face green-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
-          <img src="/assets/ic-face-green.svg" alt="{{item.status}}">
-        </div>
-        <div *ngIf="item.status==='Moderate'" class="face yellow-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
-          <img src="/assets/ic-face-yellow.svg" alt="{{item.status}}">
-        </div>
-        <div *ngIf="item.status==='Unhealthy for Sensitive Groups'" class="face orange-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
-          <img src="/assets/ic-face-orange.svg" alt="{{item.status}}">
-        </div>
-        <div *ngIf="item.status==='Unhealthy'" class="face red-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
-          <img src="/assets/ic-face-red.svg" alt="{{item.status}}">
-        </div>
+        <ng-template [ngSwitchCase]="0">
+          <div class="face green-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+            <img src="/assets/ic-face-green.svg" alt="{{item.status}}">
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="1">
+          <div class="face yellow-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+            <img src="/assets/ic-face-yellow.svg" alt="{{item.status}}">
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="2">
+          <div class="face orange-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+            <img src="/assets/ic-face-orange.svg" alt="{{item.status}}">
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="3">
+          <div class="face red-aqi-face" fxFlex="90px" fxLayoutAlign="center center">
+            <img src="/assets/ic-face-red.svg" [alt]="item.status">
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="4">
+          <div class="face opera-mauve-face" fxFlex="90px" fxLayoutAlign="center center">
+            <img src="/assets/ic-face-purple.svg" [alt]="item.status">
+          </div>
+        </ng-template>
 
         <div class="infor" fxFlex fxLayoutAlign="space-between stretch" >
           <div class="aqi-container" fxLayout="column" fxLayoutAlign="center stretch">
             <span class="aqi">{{ item.aqi }}</span>
             <span class="type">US AQI</span>
           </div>
-          <div fxLayout="column" fxLayoutAlign="space-between center">
+          <div class="status-container" fxLayout="column" fxLayoutAlign="space-between center">
             <span class="status">{{ item.status }}</span>
             <span class="pollutant">PM2.5 | {{ item.pollutant }} µg/m³</span>
           </div>

@@ -66,6 +66,7 @@ export class UserComponent implements OnInit {
       this.userForm.controls['name'].setValue(current.name);
 
       this.isCreate = false;
+      this.isConfirm = false;
       this.isChangePassword = false;
       this.userForm.get('username').disable();
 

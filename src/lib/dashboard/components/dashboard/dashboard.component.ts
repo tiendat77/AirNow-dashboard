@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 import { DashboardService } from './dashboard.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +23,15 @@ export class DashboardComponent implements OnInit {
     { id: 30, value: '30 days' },
     { id: 100, value: 'Last 100' },
   ];
+  rangeCtrl;
+  locationCtrl;
+
+  isFirstLoad = true;
 
   constructor(
     public dashboardService: DashboardService,
     private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
   ) { }
 
@@ -36,10 +41,11 @@ export class DashboardComponent implements OnInit {
       rangeCtrl: new FormControl('')
     });
 
+    this.initUrlParams();
+
     this.dashboardService.getData();
 
     this.dashboardService.locations$.subscribe(data => {
-      console.log('subscribe location');
       this.dashboardService.locations = data;
       this.filteredLocations = this.chartForm.get('locationCtrl').valueChanges.pipe(
         startWith(''),
@@ -55,13 +61,47 @@ export class DashboardComponent implements OnInit {
   }
 
   getAir() {
-    if (!this.isNull(this.rangeCtrl.value) && !this.isNull(this.locationCtrl.value)) {
+    if (!this.isNull(this.rangeCtrl) && !this.isNull(this.locationCtrl)) {
       const params = {};
-      params['location'] = this.locationCtrl.value;
-      params['range'] =  this.rangeCtrl.value;
+      params['location'] = this.locationCtrl;
+      params['range'] =  this.rangeCtrl;
       this.updateUrlParams(params);
       this.dashboardService.getAir(params);
     }
+  }
+
+  initUrlParams() {
+    const urlParams = combineLatest(
+      this.activatedRoute.params,
+      this.activatedRoute.queryParams,
+      (params, queryParams) => ({ ...params, ...queryParams })
+    );
+
+    urlParams.subscribe((params: any) => {
+      if (!Object.keys(params).length) {
+        this.rangeCtrl = this.ranges[3].id;
+        this.locationCtrl = 'Thủ Đức';
+        this.getAir();
+        return;
+      }
+
+      if (!this.isFirstLoad) {
+        return;
+      }
+
+      this.isFirstLoad = false;
+
+      if (params.range && params.location) {
+        this.rangeCtrl = this.ranges.filter(d => d.id == params.range)[0].id;
+        this.locationCtrl = params.location;
+        this.getAir();
+        return;
+      }
+
+      this.router.navigate(['/dashboard/home', {}]);
+
+    });
+
   }
 
   updateUrlParams(params) {
@@ -84,7 +124,7 @@ export class DashboardComponent implements OnInit {
     return data === undefined || data === null || data.length === 0;
   }
 
-  get locationCtrl() { return this.chartForm.get('locationCtrl') }
-  get rangeCtrl() { return this.chartForm.get('rangeCtrl') }
+  // get locationCtrl() { return this.chartForm.get('locationCtrl') }
+  // get rangeCtrl() { return this.chartForm.get('rangeCtrl') }
 
 }

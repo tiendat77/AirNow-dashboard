@@ -16,4 +16,36 @@ export class ForecastComponent implements OnInit {
     this.dashboardService.getForecast();
   }
 
+  getLevel(status: string): number {
+    let level;
+    switch (status) {
+      case 'Good': {
+        level = 0;
+        break;
+      }
+
+      case 'Moderate': {
+        level = 1;
+        break;
+      }
+
+      case 'Unhealthy for Sensitive Groups': {
+        level = 2;
+        break;
+      }
+
+      case 'Unhealthy': {
+        level = 3;
+        break;
+      }
+
+      case 'Very Unhealthy': {
+        level = 4;
+        break;
+      }
+    }
+    return level;
+  }
+
+
 }

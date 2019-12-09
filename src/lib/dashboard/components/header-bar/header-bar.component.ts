@@ -10,8 +10,8 @@ import { DashboardService } from '../dashboard/dashboard.service';
 export class HeaderBarComponent implements OnInit {
 
   user = {
-    avatar: 'admin.jpg',
     name: 'Huynh Tien Dat',
+    username: 'tiendat',
     email: 'huynhztienzdat@gmail.com'
   };
 
@@ -21,6 +21,12 @@ export class HeaderBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const userStorage = JSON.parse(localStorage.getItem('user'));
+    if (userStorage) {
+      this.user.name = userStorage.name;
+      this.user.username = userStorage.username;
+      this.user.email = userStorage.email;
+    }
   }
 
   sidenavToggle() {

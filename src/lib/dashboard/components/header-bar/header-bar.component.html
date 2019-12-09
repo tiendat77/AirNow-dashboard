@@ -15,28 +15,30 @@
           <input class="form-control" type="search" placeholder="Search">
         </form>
         <a class="nav-link dropdown" fxLayoutAlign="center center" [matMenuTriggerFor]="settings">
-          <img src="/assets/admin.jpg" height="40px" width="40px" alt="Avatar" class="round-circle">
+          <img src="/assets/admin.png" height="40px" width="40px" alt="Avatar" class="round-circle">
           <mat-icon class="dropdown-btn">keyboard_arrow_down</mat-icon>
         </a>
         <mat-menu #settings="matMenu" class="dropdown-menu">
-          <div class="dropdown-header">
-            <img src="/assets/{{user.avatar}}" height="60px" width="60px" class="round-circle" alt="Avatar">
-            <p class="user-name">{{ user.name }}</p>
-            <p class="user-email">{{ user.email }}</p>
-          </div>
-          <div class="dropdown-item" fxLayout="column" fxLayoutAlign="center start">
-            <a fxLayoutAlign="start center">
-              <mat-icon class="ico">person</mat-icon>
-              <span>My Profile</span>
-            </a>
-            <a fxLayoutAlign="start center">
-              <mat-icon class="ico">message</mat-icon>
-              <span>Message</span>
-            </a>
-            <a fxLayoutAlign="start center" (click)="logout()">
-              <mat-icon class="ico">power_settings_new</mat-icon>
-              <span>Sign out</span>
-            </a>
+          <div class="menu-container">
+            <div class="dropdown-header">
+              <img src="/assets/admin.png" height="60px" width="60px" class="round-circle" alt="Avatar">
+              <p class="user-name">{{ user.name ? user.name : user.username }}</p>
+              <p class="user-email">{{ user.email }}</p>
+            </div>
+            <div class="dropdown-item" fxLayout="column" fxLayoutAlign="center start">
+              <a fxLayoutAlign="start center">
+                <mat-icon class="ico">person</mat-icon>
+                <span>My Profile</span>
+              </a>
+              <a fxLayoutAlign="start center">
+                <mat-icon class="ico">message</mat-icon>
+                <span>Message</span>
+              </a>
+              <a fxLayoutAlign="start center" (click)="logout()">
+                <mat-icon class="ico">power_settings_new</mat-icon>
+                <span>Sign out</span>
+              </a>
+            </div>
           </div>
         </mat-menu>
       </div>

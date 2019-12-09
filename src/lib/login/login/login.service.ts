@@ -42,13 +42,19 @@ export class LoginService {
     this.httpClient.post(this.SERVER_URL + 'login', user, this.httpOptions)
     .subscribe(
       (res: any) => {
-        setTimeout(() => {
-          this.loading = false;
-        }, 200);
 
         if (res.valid) {
+          const userInfo = {
+            username: res.username,
+            name: res.name,
+            email: res.email
+          };
+          localStorage.setItem('user', JSON.stringify(userInfo));
           this.router.navigate(['/dashboard']);
         } else {
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
           this.error = 'Something went wrong';
         }
       },

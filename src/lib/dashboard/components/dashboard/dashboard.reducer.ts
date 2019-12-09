@@ -44,8 +44,6 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
       const temperatureList = [];
       const humidityList = [];
 
-      console.log('redux ', action.payload.aqi);
-
       for (let i = 0; i < action.payload.aqi.length; i++) {
         // Fetch aqi
         const aqi = action.payload.aqi[i];
