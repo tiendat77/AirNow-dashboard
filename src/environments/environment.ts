@@ -7,6 +7,7 @@ export const environment = {
   LoginAPI: 'http://127.0.0.1:8000/',
   DashboarAPI: 'http://127.0.0.1:8000/api/',
   AdminAPI: 'http://127.0.0.1:8000/admin/',
+  DeviceAPI: 'http://127.0.0.1:8000/device/',
 };
 
 /*

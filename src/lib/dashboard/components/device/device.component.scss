@@ -1,7 +1,7 @@
 $base-color: #1c1e2f;
 $card-color: #222437;
 
-.user-container {
+.device-container {
   height: calc(100vh - 64px);
   width: 100%;
   background-color: $base-color;
@@ -94,11 +94,21 @@ $card-color: #222437;
         border-top: 1px solid #2f3646;
       }
 
-      .reset-pwd {
+      .status {
         line-height: 20px;
         height: 20px;
+
+        &.online {
+          color: #068f06;
+        }
+
+        &.offline {
+          color: #FF0000;
+        }
       }
     }
+
+    ::ng-deep .datatable-row-detail { width: 100vw; }
   }
 
 }

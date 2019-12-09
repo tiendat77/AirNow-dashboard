@@ -1,0 +1,107 @@
+<mat-sidenav-container class="device-container">
+  <mat-sidenav #deviceSidenav class="sidenav" position="end" (close)="closeSidenav()">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex>
+      <mat-toolbar class="toolbar-header" fxLayoutAlign="space-between center">
+        <span>{{ isCreate === true ? 'Create' : 'Edit' }} Device</span>
+        <button mat-icon-button matTooltip="Close" class="clear" (click)="deviceSidenav.close()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <form class="form" [formGroup]="deviceForm" fxFlex>
+        <div class="form-content" fxLayout="column" fxLayoutAlign="start center" fxFlex>
+          <!-- Device ID -->
+          <div class="row">
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput required formControlName="id">
+              <mat-placeholder class="placeholder">ID</mat-placeholder>
+              <mat-hint *ngIf="id.errors && (id.dirty || id.touched)">
+                <div class="hint" *ngIf="id.errors.required">
+                  ID is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- Device Location -->
+          <div class="row">
+            <mat-form-field fxFlex>
+              <input type="text" class="input" matInput formControlName="location" required>
+              <mat-placeholder class="placeholder">Location</mat-placeholder>
+              <mat-hint *ngIf="location.errors && (location.dirty || location.touched)">
+                <div class="hint" *ngIf="location.errors.required">
+                  Location is required.
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+      <mat-toolbar class="toolbar-footer" fxLayoutAlign="space-between center">
+        <div fxLayoutAlign="start center">
+          <button mat-raised-button color="warn" (click)="isConfirm = true" *ngIf="!isCreate && !isConfirm">Remove</button>
+          <button mat-raised-button color="warn" (click)="onRemoveDevice()" *ngIf="!isCreate && isConfirm">Confirm</button>
+        </div>
+        <div fxLayoutAlign="end center" fxLayoutGap="15px">
+          <button mat-raised-button color="primary" (click)="closeSidenav()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="onCreateDevice()" *ngIf="isCreate">Create</button>
+          <button mat-raised-button color="primary" (click)="onUpdateDevice()" *ngIf="!isCreate">Update</button>
+        </div>
+      </mat-toolbar>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main -->
+  <div fxLayout="column" class="main">
+
+    <button mat-mini-fab color="primary" class="fab" (click)="openSidenav()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <div class="table-container">
+      <mat-progress-bar mode="indeterminate" *ngIf="(deviceService.isLoading$ | async)"></mat-progress-bar>
+      <ngx-datatable
+        id="table"
+        [rows]="(deviceService.devices$ | async)"
+        [limit]="20"
+        [columnMode]="'flex'"
+        [headerHeight]="40"
+        [footerHeight]="40"
+        [rowHeight]="40"
+        [selectionType]="'single'"
+        (select)="onSelect($event)"
+        [sorts]="[{ prop: 'id', dir: 'asc' }]"
+        class="dark table-dark">
+
+        <!--ID-->
+        <ngx-datatable-column name="ID" prop="id" [flexGrow]="2">
+        </ngx-datatable-column>
+
+        <!--LOCATON-->
+        <ngx-datatable-column name="Location" prop="location" [flexGrow]="2">
+        </ngx-datatable-column>
+
+        <!-- STATUS -->
+        <ngx-datatable-column prop="" fxLayoutAlign="center center" [flexGrow]=".4">
+          <ng-template let-column="column" ngx-datatable-header-template> 
+            <div fxLayoutAlign="center center">
+              Status
+            </div>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div fxLayoutAlign="center center">
+              <button mat-icon-button class="status" [ngClass]="{'online': true}"
+                matTooltip="Status" matTooltipPosition="before"
+                (click)="$event.stopPropagation()">
+                <mat-icon>check_circle</mat-icon>
+              </button> 
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+      </ngx-datatable>
+    </div>
+  </div>
+
+</mat-sidenav-container>

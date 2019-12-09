@@ -58,12 +58,12 @@
         background: #ffdf58;
       }
 
-      .orange-aqi-bg {
+      &.orange-aqi-bg {
         color: #b25826;
         background: #ffa968;
       }
 
-      &.orange-aqi-face {
+      .orange-aqi-face {
         background: #fe9b57 !important;
       }
 
@@ -74,6 +74,15 @@
       &.red-aqi-bg {
         color: #af2c3b;
         background: #ff7978;
+      }
+
+      &.opera-mauve-aqi-bg {
+        color: #634675;
+        background: #b283c5;
+      }
+
+      .opera-mauve-face {
+        background: #a97abc;
       }
 
       .infor {
@@ -95,20 +104,26 @@
           }
         }
 
-        .status {
-          font-weight: 600;
-          padding-top: 7px;
-          line-height: 18px;
-        }
+        .status-container {
+          max-width: 123px;
 
-        .pollutant {
-          width: 100%;
-          font-size: 12px;
-          background: #fff;
-          border-radius: 4px;
-          font-weight: 700;
-          overflow: hidden;
-          padding: 3px;
+          .status {
+            font-weight: 600;
+            padding-top: 7px;
+            line-height: 18px;
+            text-align: center;
+          }
+  
+          .pollutant {
+            width: 100%;
+            font-size: 12px;
+            background: #fff;
+            border-radius: 4px;
+            font-weight: 700;
+            overflow: hidden;
+            padding: 3px;
+            text-align: center;
+          }
         }
       }
     }

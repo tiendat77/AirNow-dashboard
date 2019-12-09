@@ -17,7 +17,6 @@ export class AqiChartComponent implements OnInit {
   ngOnInit() {
     this.data.subscribe( data => {
       this.dataPoints = data;
-      console.log('got data: ', data);
       this.renderChart();
     });
   }

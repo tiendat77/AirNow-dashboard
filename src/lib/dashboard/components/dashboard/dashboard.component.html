@@ -30,9 +30,9 @@
     </div>
   </section>
 
-  <form class="action" [formGroup]="chartForm" fxLayoutAlign="end center" fxLayoutGap="15px">
+  <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
     <mat-form-field>
-      <input class="input" type="text" matInput formControlName="locationCtrl" [matAutocomplete]="auto">
+      <input class="input" type="text" matInput name="location" [(ngModel)]="locationCtrl" [matAutocomplete]="auto">
       <mat-placeholder class="placeholder">Location</mat-placeholder>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let location of filteredLocations | async" [value]="location" (click)="getAir()">
@@ -43,11 +43,11 @@
 
     <mat-form-field floatLabel="never">
       <mat-label class="placeholder">Time</mat-label>
-      <mat-select formControlName="rangeCtrl">
+      <mat-select name="range" [(ngModel)]="rangeCtrl">
         <mat-option *ngFor="let range of ranges" [value]="range.id" (click)="getAir()">{{ range.value }}</mat-option>
       </mat-select>
     </mat-form-field>
-  </form>
+  </div>
 
   <section class="section-chart">
     <div class="row" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px" fxFlex>

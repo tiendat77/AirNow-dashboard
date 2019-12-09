@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { D3ChartComponent } from './d3-chart.component';
+import { DeviceComponent } from './device.component';
 
-describe('D3ChartComponent', () => {
-  let component: D3ChartComponent;
-  let fixture: ComponentFixture<D3ChartComponent>;
+describe('DeviceComponent', () => {
+  let component: DeviceComponent;
+  let fixture: ComponentFixture<DeviceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ D3ChartComponent ]
+      declarations: [ DeviceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(D3ChartComponent);
+    fixture = TestBed.createComponent(DeviceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
