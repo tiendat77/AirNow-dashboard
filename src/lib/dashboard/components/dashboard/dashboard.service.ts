@@ -25,6 +25,9 @@ export class DashboardService {
   humidity: any[] = [];
   locations: any[] = [];
 
+  currentLocation: string = '';
+  currentRange: number = 0;
+
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   // tslint:disable-next-line: variable-name
@@ -49,9 +52,21 @@ export class DashboardService {
     this._store.dispatch(new DashboardActions.GetForecast());
   }
 
-  getAir(params) {
+  getAir(location: string, range: number) {
+    const params = {
+      location: location,
+      range: range
+    };
+    this.currentLocation = location;
+    this.currentRange = range;
     this.isLoading.next(true);
     this._store.dispatch(new DashboardActions.GetAir(params));
+  }
+
+  refreshAir() {
+    if (this.currentLocation !== '' && this.currentRange !== 0) {
+      this.getAir(this.currentLocation, this.currentRange);
+    }
   }
 
   toggleMenu() {

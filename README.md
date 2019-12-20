@@ -1,8 +1,3 @@
-# Todo list
-- [ ] add range param for getAqi(), getTemperature(), getHumidity()
-- [ ] add construtor for dashboard action
-- [ ] add action.payload for dashboard reducer
-
 # AirnowDashboard
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.8.

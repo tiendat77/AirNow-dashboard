@@ -35,7 +35,7 @@ $card-color: #222437;
         padding: 16px 16px;
 
         .row {
-          width: 100%;;
+          width: 100%;
           margin: 5px;
         }
 
@@ -50,7 +50,11 @@ $card-color: #222437;
         .hint {
           color: rgba($color: #cc2a2a, $alpha: .78)
         }
-      }  
+
+        ::ng-deep .mat-form-field-underline {
+          background-color: rgba(#fff, .70);
+        }
+      }
     }
   }
 

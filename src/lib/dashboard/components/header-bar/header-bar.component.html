@@ -10,10 +10,13 @@
           <span class="title">AirNow</span>
         </a>
       </div>
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <form class="form-wrap" action="#" fxLayoutAlign="start center">
+      <div fxLayoutAlign="space-between center" fxLayoutGap="10px">
+        <form class="form-wrap" action="#" fxLayoutAlign="start center" fxHide.lt-sm>
           <input class="form-control" type="search" placeholder="Search">
         </form>
+        <button mat-icon-button (click)="refresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
         <a class="nav-link dropdown" fxLayoutAlign="center center" [matMenuTriggerFor]="settings">
           <img src="/assets/admin.png" height="40px" width="40px" alt="Avatar" class="round-circle">
           <mat-icon class="dropdown-btn">keyboard_arrow_down</mat-icon>

@@ -17,7 +17,7 @@ export class TempChartComponent implements OnInit {
   ngOnInit() {
     this.data.subscribe( data => {
       this.dataPoints = data;
-      console.log('got data: ', data);
+      console.log('got data', {data: data});
       this.renderChart();
     });
   }

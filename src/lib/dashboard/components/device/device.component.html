@@ -100,6 +100,15 @@
           </ng-template>
         </ngx-datatable-column>
 
+        <!-- Footer -->
+        <ngx-datatable-footer>
+          <ng-template let-rowCount="rowCount" ngx-datatable-footer-template>
+            <div>
+              <strong>Total: {{rowCount.toLocaleString()}}</strong>
+            </div>
+          </ng-template>
+        </ngx-datatable-footer>
+
       </ngx-datatable>
     </div>
   </div>

@@ -1,16 +1,22 @@
 <div class="main-panel" fxLayout="column">
   <section class="section-statistic">
-    <div class="row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px" fxFlex>
+    <div class="row"
+        fxLayout="row"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="start stretch"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="15px"
+        fxFlex>
       <mat-card class="card" *ngFor="let statis of (dashboardService.statistics$ | async)" fxFlex>
         <div class="card-body">
-          <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
-            <div class="icon-lg" fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+            <div class="icon-lg">
               <mat-icon *ngIf="statis.title==='visit'" class="perm_identity">perm_identity</mat-icon>
               <mat-icon *ngIf="statis.title==='upload'" class="cloud_upload">cloud_upload</mat-icon>
               <mat-icon *ngIf="statis.title==='download'" class="cloud_download">cloud_download</mat-icon>
               <mat-icon *ngIf="statis.title==='device'" class="devices">devices</mat-icon>
             </div>
-            <div fxLayout="column" fxLayoutAlign="space-between end" fxFlex>
+            <div fxLayout="column" fxLayoutAlign="space-between end">
               <h3 class="h3-statis">{{ statis.value }}</h3>
               <h5 class="h5-statis">{{ statis.title | titlecase }}s</h5>
             </div>
@@ -31,7 +37,7 @@
   </section>
 
   <div class="action" fxLayoutAlign="end center" fxLayoutGap="15px">
-    <mat-form-field>
+    <mat-form-field floatLabel="always">
       <input class="input" type="text" matInput [formControl]="locationCtrl" [matAutocomplete]="auto">
       <mat-placeholder class="placeholder">Location</mat-placeholder>
       <mat-autocomplete #auto="matAutocomplete">
@@ -41,8 +47,8 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field floatLabel="never">
-      <mat-label class="placeholder">Time</mat-label>
+    <mat-form-field floatLabel="always">
+      <mat-placeholder class="placeholder">Range</mat-placeholder>
       <mat-select name="range" [(ngModel)]="rangeCtrl">
         <mat-option *ngFor="let range of ranges" [value]="range.id" (click)="getAir()">{{ range.value }}</mat-option>
       </mat-select>
@@ -50,8 +56,14 @@
   </div>
 
   <section class="section-chart">
-    <div class="row" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px" fxFlex>
-      <div class="row-item" fxFlex="60">
+    <div class="row"
+      fxLayout="row"
+      fxLayoutAlign="space-between stretch"
+      fxLayout.lt-sm="column"
+      fxLayoutAlign.lt-sm="start stretch"
+      fxLayoutGap="15px"
+      fxFlex>
+      <div class="row-item" fxFlex="60"fxFlex.lt-sm="100">
         <div class="card" fxLayoutAlign="center stretch" fxFlex>
           <div class="card-body chart-aqi" fxFlex>
             <aqi-chart
@@ -61,8 +73,8 @@
         </div>
       </div>
 
-      <div class="row-item" fxFlex>
-        <div fxLayout="column" fxLayoutGap="15px" fxFlex>
+      <div class="row-item" fxFlex fxFlex.lt-sm="100">
+        <div fxLayout="column" fxLayoutGap="15px" fxFlex fxFlex.lt-sm="100">
           <div class="card" fxFlex="50">
             <div class="card-body chart-temperature" fxFlex>
               <temp-chart
@@ -71,7 +83,7 @@
             </div>
           </div>
 
-          <div class="card" fxFlex="50">
+          <div class="card" fxFlex="50" fxFlex.lt-sm="100">
             <div class="card-body chart-humidity" fxFlex>
               <humi-chart
                 [data]="dashboardService.humidity$">

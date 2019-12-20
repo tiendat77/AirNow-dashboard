@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
       params['location'] = this.locationCtrl.value;
       params['range'] =  this.rangeCtrl;
       this.updateUrlParams(params);
-      this.dashboardService.getAir(params);
+      this.dashboardService.getAir(this.locationCtrl.value, this.rangeCtrl);
     }
   }
 

@@ -1,5 +1,10 @@
-<div class="container" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px">
-  <div class="row" fxFlex="364px" *ngFor="let item of (dashboardService.forecast$ | async); index as i" fxShow [fxHide.lt-md]="i === 2">
+<div class="container"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign.lt-sm="start stretch"
+  fxLayoutAlign="space-around stretch"
+  fxLayoutGap="10px">
+  <div class="row"
+    *ngFor="let item of (dashboardService.forecast$ | async); index as i">
     <div class="column card" fxLayout="column">
       <div class="card-header" fxLayoutAlign="space-between center">
         <div class="name">

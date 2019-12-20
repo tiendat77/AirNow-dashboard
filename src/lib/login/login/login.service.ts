@@ -44,11 +44,16 @@ export class LoginService {
       (res: any) => {
 
         if (res.valid) {
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
+
           const userInfo = {
             username: res.username,
             name: res.name,
             email: res.email
           };
+
           localStorage.setItem('user', JSON.stringify(userInfo));
           this.router.navigate(['/dashboard']);
         } else {

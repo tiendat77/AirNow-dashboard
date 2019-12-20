@@ -29,6 +29,11 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
+  refresh() {
+    this.dashboardService.getForecast();
+    this.dashboardService.refreshAir();
+  }
+
   sidenavToggle() {
     this.dashboardService.toggleMenu();
   }

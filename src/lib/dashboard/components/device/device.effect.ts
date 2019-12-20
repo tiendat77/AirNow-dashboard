@@ -57,7 +57,11 @@ export class DeviceEffect {
     switchMap((body: any) =>
       this.http.post(this.SERVER_URL + '/createDevice', body).pipe(
         map((data: any) => {
-          this.pushNotification('Device '+ body.id + ' created!');
+          if (data && data.success) {
+            this.pushNotification('Device '+ body.id + ' created!');
+          } else {
+            this.pushNotification('Create fail! Please try again');
+          }
           this.deviceService.isLoading$.next(false);
           return new DeviceActions.GetData();
         }),
@@ -114,7 +118,11 @@ export class DeviceEffect {
     switchMap((body: any) =>
       this.http.post(this.SERVER_URL + '/removeDevice', body).pipe(
         map((data: any) => {
-          this.pushNotification('Device '+ body.id + ' removed!');
+          if (data && data.success) {
+            this.pushNotification('Device '+ body.id + ' removed!');
+          } else {
+            this.pushNotification('Remove error! Please try again');
+          }
           this.deviceService.isLoading$.next(false);
           return new DeviceActions.GetData();
         }),
