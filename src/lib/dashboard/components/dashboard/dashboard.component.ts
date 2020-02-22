@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
 
     setInterval(() => {
       this.dashboardService.refreshAir();
-    }, 1000 * 60 * 5) // 5 minute
+    }, 1000 * 60 * 2) // 2 minute
 
   }
 

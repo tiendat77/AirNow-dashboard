@@ -31,6 +31,16 @@ export class LoginService {
     private snackbar: MatSnackBar
   ) { }
 
+  isLogged(): boolean {
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      return true;
+    }
+
+    return false;
+  }
+
   login(username: string, password: string) {
 
     this.loading = true;
@@ -44,29 +54,33 @@ export class LoginService {
       (res: any) => {
 
         if (res.valid) {
-          setTimeout(() => {
-            this.loading = false;
-          }, 200);
+          this.error = '';
+
+          this.router.navigate(['/dashboard']);
 
           const userInfo = {
             username: res.username,
             name: res.name,
             email: res.email
           };
-
           localStorage.setItem('user', JSON.stringify(userInfo));
-          this.router.navigate(['/dashboard']);
+
+
+          setTimeout(() => {
+            this.loading = false;
+          }, 100);
+
         } else {
           setTimeout(() => {
             this.loading = false;
-          }, 200);
+          }, 100);
           this.error = 'Something went wrong';
         }
       },
       (error) => {
         setTimeout(() => {
           this.loading = false;
-        }, 200);
+        }, 100);
 
         if (error.status === 401) {
           this.error = 'Incorrect username or password';
@@ -77,9 +91,10 @@ export class LoginService {
   }
 
   logout() {
-    this.httpClient.get(this.SERVER_URL + 'logout', this.httpOptions).subscribe(
+    this.httpClient.get(this.SERVER_URL + 'logout').subscribe(
       (res: any) => {
         if (res.logout) {
+          localStorage.removeItem('user');
           this.router.navigate(['/login']);
         } else {
           this.snackbar.open('Something went wrong! Please try again', 'OK', { duration: 2000 });

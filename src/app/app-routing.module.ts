@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: '../lib/dashboard/dashboard.module#DashboardModule'
+  },
+  {
+    path: '**',
+    loadChildren: '../lib/login/login.module#LoginModule'
   }
 ];
 

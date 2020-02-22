@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
@@ -28,9 +29,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public loginService: LoginService,
+    private router: Router,
     ) { }
 
   ngOnInit() {
+    if (this.loginService.isLogged()) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+
     this.SigninForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', Validators.required]
