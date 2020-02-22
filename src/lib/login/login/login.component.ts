@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.loginService.isLogged()) {
+      console.log('dashboar')
       this.router.navigate(['/dashboard']);
     } else {
+      console.log('login')
       this.router.navigate(['/login']);
     }
 

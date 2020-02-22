@@ -34,7 +34,7 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
         dataObj['temperature'] = Math.round(data[i].temperature);
         dataObj['humidity'] = Math.round(data[i].humidity);
         dataObj['pollutant'] = Math.round(data[i].pollutant * 10) / 10;
-        dataObj['tooltip'] = dataObj.location + '\n' + formatTime(time);
+        dataObj['tooltip'] = formatTime(time);
         forecast.push(dataObj);
       }
 

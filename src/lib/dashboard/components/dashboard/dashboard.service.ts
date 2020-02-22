@@ -73,4 +73,14 @@ export class DashboardService {
     this.isMenuOpened  = !this.isMenuOpened;
   }
 
+  canView(): boolean {
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      return true;
+    }
+
+    return false;
+  }
+
 }

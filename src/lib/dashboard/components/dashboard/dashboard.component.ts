@@ -34,6 +34,10 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (!this.dashboardService.canView()) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
     this.dashboardService.locations$.subscribe((data: any) => {
       if (data && data.length > 0) {
