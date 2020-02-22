@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 
-import * as DashboardActions from './dashboard.action';
 import { DashboardState } from './dashboard.state';
+import * as DashboardActions from './dashboard.action';
 
 type DashboardActions = DashboardActions.All;
 
@@ -29,9 +29,12 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
 
       for (let i = 0; i < 3; i++) { // Maximum 3 forecast
         const dataObj = data[i];
+        const time: Date = new Date(data[i].time);
+
         dataObj['temperature'] = Math.round(data[i].temperature);
         dataObj['humidity'] = Math.round(data[i].humidity);
         dataObj['pollutant'] = Math.round(data[i].pollutant * 10) / 10;
+        dataObj['tooltip'] = dataObj.location + '\n' + formatTime(time);
         forecast.push(dataObj);
       }
 
@@ -81,4 +84,15 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
     default:
       return state;
   }
+}
+
+function formatTime(date: Date): string {
+  let formatted = '';
+  let hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
+  let minute = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+
+  formatted += 'Time: ' + hour + ':' + minute + '\n'
+             + 'Date: ' + date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+
+  return formatted;
 }

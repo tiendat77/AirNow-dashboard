@@ -34,7 +34,15 @@ export class HumiChartComponent implements OnInit {
       },
 
       toolTip: {
-        shared: true
+        shared: true,
+        contentFormatter: (e) => {
+          let toolTip = '<span><strong style="color: #03a9f4">AQI: </strong>';
+          let date: Date = e.entries[0].dataPoint.x;
+
+          toolTip += e.entries[0].dataPoint.y + '</span>' + '</br>';
+          toolTip += 'Time: ' + this.formatTime(date);
+          return toolTip;
+        },
       },
 
       axisX: {
@@ -64,5 +72,12 @@ export class HumiChartComponent implements OnInit {
     chart.render();
   }
 
+  formatTime(date: Date) {
+    let formatted = '';
+    formatted += date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())  + ' ';
+    formatted += date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+
+    return formatted;
+  }
 
 }

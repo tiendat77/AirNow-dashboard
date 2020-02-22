@@ -2,6 +2,10 @@
 
   .row {
     margin: 0 -12px;
+
+    &:hover {
+      box-shadow: 0 0 11px rgba(121, 121, 121, .7);
+    }
   }
 
   .column {

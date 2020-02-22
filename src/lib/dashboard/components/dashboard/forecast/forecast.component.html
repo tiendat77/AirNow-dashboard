@@ -4,8 +4,15 @@
   fxLayoutAlign="space-around stretch"
   fxLayoutGap="10px">
   <div class="row"
-    *ngFor="let item of (dashboardService.forecast$ | async); index as i">
-    <div class="column card" fxLayout="column">
+    *ngFor="let item of (dashboardService.forecast$ | async); index as i"
+    fxFlex="368px"
+    fxFlex.lt-md="0 1 calc(50% - 10px)"
+    fxFlex.lt-sm="100%"
+    [fxHide.lt-md]="i===2"
+    fxShow.lt-sm>
+    <div class="column card" fxLayout="column"
+      matTooltip="{{ item.tooltip }}"
+      matTooltipClass="forecast-tooltip">
       <div class="card-header" fxLayoutAlign="space-between center">
         <div class="name">
           <span>{{ item.location }}</span>

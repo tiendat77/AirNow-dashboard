@@ -2,12 +2,20 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// export const environment = {
+//   production: false,
+//   LoginAPI: 'http://127.0.0.1:8000/',
+//   DashboarAPI: 'http://127.0.0.1:8000/api/',
+//   AdminAPI: 'http://127.0.0.1:8000/admin/',
+//   DeviceAPI: 'http://127.0.0.1:8000/device/',
+// };
+
 export const environment = {
-  production: false,
-  LoginAPI: 'http://127.0.0.1:8000/',
-  DashboarAPI: 'http://127.0.0.1:8000/api/',
-  AdminAPI: 'http://127.0.0.1:8000/admin/',
-  DeviceAPI: 'http://127.0.0.1:8000/device/',
+  production: true,
+  LoginAPI: 'http://13.59.35.198:8000/',
+  DashboarAPI: 'http://13.59.35.198:8000/api/',
+  AdminAPI: 'http://13.59.35.198:8000/admin/',
+  DeviceAPI: 'http://13.59.35.198:8000/device/',
 };
 
 /*

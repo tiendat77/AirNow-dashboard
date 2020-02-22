@@ -17,7 +17,6 @@ export class TempChartComponent implements OnInit {
   ngOnInit() {
     this.data.subscribe( data => {
       this.dataPoints = data;
-      console.log('got data', {data: data});
       this.renderChart();
     });
   }
@@ -35,7 +34,15 @@ export class TempChartComponent implements OnInit {
       },
 
       toolTip: {
-        shared: true
+        shared: true,
+        contentFormatter: (e) => {
+          let toolTip = '<span><strong style="color: #ff7043">AQI: </strong>';
+          let date: Date = e.entries[0].dataPoint.x;
+
+          toolTip += e.entries[0].dataPoint.y + '</span>' + '</br>';
+          toolTip += 'Time: ' + this.formatTime(date);
+          return toolTip;
+        },
       },
 
       axisX: {
@@ -65,5 +72,12 @@ export class TempChartComponent implements OnInit {
     chart.render();
   }
 
+  formatTime(date: Date) {
+    let formatted = '';
+    formatted += date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())  + ' ';
+    formatted += date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+
+    return formatted;
+  }
 
 }

@@ -52,6 +52,10 @@ export class DashboardComponent implements OnInit {
       );
     });
 
+    setInterval(() => {
+      this.dashboardService.refreshAir();
+    }, 1000 * 60 * 5) // 5 minute
+
   }
 
   filterLocation(value: string) {

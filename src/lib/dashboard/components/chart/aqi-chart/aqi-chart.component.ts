@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import * as CanvasJS from '../../../../../assets/canvasjs.min';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'aqi-chart',
@@ -16,8 +16,11 @@ export class AqiChartComponent implements OnInit {
 
   ngOnInit() {
     this.data.subscribe( data => {
-      this.dataPoints = data;
-      this.renderChart();
+      if (data.length > 0) {
+        this.dataPoints = data;
+        console.log('aqi: ', {data: data});
+        this.renderChart();
+      }
     });
   }
 
@@ -34,7 +37,15 @@ export class AqiChartComponent implements OnInit {
       },
 
       toolTip: {
-        shared: true
+        shared: true,
+        contentFormatter: (e) => {
+          let toolTip = '<span><strong style="color: #ab47bc">AQI: </strong>';
+          let date: Date = e.entries[0].dataPoint.x;
+
+          toolTip += e.entries[0].dataPoint.y + '</span>' + '</br>';
+          toolTip += 'Time: ' + this.formatTime(date);
+          return toolTip;
+        },
       },
 
       axisX: {
@@ -62,6 +73,14 @@ export class AqiChartComponent implements OnInit {
     });
 
     chart.render();
+  }
+
+  formatTime(date: Date) {
+    let formatted = '';
+    formatted += date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())  + ' ';
+    formatted += date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+
+    return formatted;
   }
 
 }
