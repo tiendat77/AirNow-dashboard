@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
     });
 
     setInterval(() => {
+      this.dashboardService.getForecast();
       this.dashboardService.refreshAir();
     }, 1000 * 60 * 2) // 2 minute
 
