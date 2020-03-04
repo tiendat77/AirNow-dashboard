@@ -18,7 +18,7 @@ export class AqiChartComponent implements OnInit {
     this.data.subscribe( data => {
       if (data.length > 0) {
         this.dataPoints = data;
-        console.log('aqi: ', {data: data});
+        // console.log('aqi: ', {data: data});
         this.renderChart();
       }
     });

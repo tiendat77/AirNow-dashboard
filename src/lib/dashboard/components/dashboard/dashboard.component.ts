@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Observable, combineLatest } from 'rxjs';
@@ -6,6 +6,7 @@ import { startWith, map } from 'rxjs/operators';
 
 import { DashboardService } from './dashboard.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatAutocompleteTrigger } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +14,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild(MatAutocompleteTrigger, {static: false}) autocomplete: MatAutocompleteTrigger;
 
   locationCtrl = new FormControl('');
+  selectedLocation: string;
 
   filteredLocations: Observable<any>;
   ranges = [
@@ -57,9 +60,10 @@ export class DashboardComponent implements OnInit {
     });
 
     setInterval(() => {
+      console.log('got data');
       this.dashboardService.getForecast();
       this.dashboardService.refreshAir();
-    }, 1000 * 60 * 2) // 2 minute
+    }, 1000 * 60 * 2); // 2 minute
 
   }
 
@@ -78,6 +82,20 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  focusLocation() {
+    this.locationCtrl.setValue('');
+    this.autocomplete.openPanel();
+  }
+
+  selectLocation(location: string) {
+    if (location && this.selectedLocation !== location) {
+      this.locationCtrl.setValue(location);
+      this.selectedLocation = location;
+    } else {
+      this.locationCtrl.setValue(this.selectedLocation);
+    }
+  }
+
   initUrlParams() {
     const urlParams = combineLatest(
       this.activatedRoute.params,
@@ -87,8 +105,9 @@ export class DashboardComponent implements OnInit {
 
     urlParams.subscribe((params: any) => {
       if (!Object.keys(params).length) {
-        this.rangeCtrl = this.ranges[3].id;
-        this.locationCtrl.setValue('Thủ Đức');
+        this.rangeCtrl = this.ranges[0].id;
+        this.locationCtrl.setValue('Đông Hòa');
+        this.selectedLocation = 'Đông Hòa';
         this.getAir();
         return;
       }
@@ -104,6 +123,7 @@ export class DashboardComponent implements OnInit {
         const location = this.dashboardService.locations.filter(d => d == params.location)[0];
         if (location) {
           this.locationCtrl.setValue(params.location);
+          this.selectedLocation = params.location;
         } else {
           this.router.navigate(['/dashboard/home'], { queryParams: {} });
         }

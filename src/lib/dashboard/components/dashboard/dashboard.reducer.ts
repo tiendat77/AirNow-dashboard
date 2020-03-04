@@ -47,27 +47,28 @@ export function dashboardReducer(state: DashboardState = initialState, action: D
       const temperatureList = [];
       const humidityList = [];
 
-      for (let i = 0; i < action.payload.aqi.length; i++) {
-        // Fetch aqi
-        const aqi = action.payload.aqi[i];
+      // Fetch aqi
+      for (const aqi of action.payload.aqi) {
         aqiList.push({
           y: aqi.aqi,
           x: new Date(aqi.time)
         });
+      }
 
-        // Fetch temperature
-        const temperature = action.payload.temperature[i];
+      // Fetch temperature
+      for (const temperature of action.payload.temperature) {
         temperatureList.push({
           y: temperature.degrees,
           x: new Date(temperature.time)
         });
+      }
 
-        // Fetch humidity
-        const humidity = action.payload.humidity[i];
+      // Fetch humidity
+      for (const humidity of action.payload.humidity) {
         humidityList.push({
           y: humidity.humidity,
           x: new Date(humidity.time)
-        })
+        });
       }
 
       return state

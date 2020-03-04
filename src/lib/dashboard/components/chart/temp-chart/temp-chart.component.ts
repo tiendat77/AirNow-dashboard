@@ -36,10 +36,11 @@ export class TempChartComponent implements OnInit {
       toolTip: {
         shared: true,
         contentFormatter: (e) => {
-          let toolTip = '<span><strong style="color: #ff7043">AQI: </strong>';
-          let date: Date = e.entries[0].dataPoint.x;
+          let toolTip = '<span><strong style="color: #ff7043">Temperature: </strong>';
+          const date: Date = e.entries[0].dataPoint.x;
+          const value = Math.round(e.entries[0].dataPoint.y * 10) / 10;
 
-          toolTip += e.entries[0].dataPoint.y + '</span>' + '</br>';
+          toolTip += value + '</span>' + '</br>';
           toolTip += 'Time: ' + this.formatTime(date);
           return toolTip;
         },

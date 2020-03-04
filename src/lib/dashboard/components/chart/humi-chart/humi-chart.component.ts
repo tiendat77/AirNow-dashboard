@@ -36,10 +36,11 @@ export class HumiChartComponent implements OnInit {
       toolTip: {
         shared: true,
         contentFormatter: (e) => {
-          let toolTip = '<span><strong style="color: #03a9f4">AQI: </strong>';
+          let toolTip = '<span><strong style="color: #03a9f4">Humidity: </strong>';
           let date: Date = e.entries[0].dataPoint.x;
+          const value = Math.round(e.entries[0].dataPoint.y * 10) / 10;
 
-          toolTip += e.entries[0].dataPoint.y + '</span>' + '</br>';
+          toolTip += value + '</span>' + '</br>';
           toolTip += 'Time: ' + this.formatTime(date);
           return toolTip;
         },
